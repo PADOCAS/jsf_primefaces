@@ -7,7 +7,7 @@
         <welcome-file>index.jsf</welcome-file>
     </welcome-file-list> 
     <!-- Configuração as páginas vão abrir com o JSF -->
-    <!--Para logar no sistema, usar http://localhost:8080/jsf_primefaces/index.jsf   -->
+    <!--Para logar no sistema, usar http://localhost:8080/jsf_primefaces/index.jsf ou direto como definimos o welcome-file-list >> http://localhost:8080/jsf_primefaces  -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
