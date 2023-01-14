@@ -5,12 +5,79 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
     <head>
-        <title>JSF</title>
+        <title>JSF - PrimeFaces</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
-    <body>
-        <div>Ola Brasil!!!</div>
+    <body>        
+        <h:messages id="messageIndex" />
+
+        <h:form id="formUsuario">
+            <h:panelGrid columns="2" >
+                <h:outputLabel id="lblId" value="ID" />
+                <h:inputText id="txtId" readonly="true" value="#{usuarioController.usuario.id}" style="width: 100px;" />
+
+                <h:outputLabel id="lblNome" value="Nome"/>
+                <h:inputText id="txtNome" value="#{usuarioController.usuario.nome}" style="width: 150px;"/>
+
+                <h:outputLabel id="lblSobrenome" value="Sobrenome"/>
+                <h:inputText id="txtSobrenome" value="#{usuarioController.usuario.sobrenome}" style="width: 400px;" />
+
+                <h:outputLabel id="lblIdade" value="Idade"/>
+                <h:inputText id="txtIdade" value="#{usuarioController.usuario.idade}" style="width: 100px;" />
+
+                <h:outputLabel id="lblLogin" value="Login"/>
+                <h:inputText id="txtLogin" value="#{usuarioController.usuario.login}" style="width: 200px;" />
+
+                <h:outputLabel id="lblSenha" value="Senha"/>
+                <h:inputSecret id="txtSenha" value="#{usuarioController.usuario.senha}" style="width: 200px;" />
+
+                <br/>
+                
+                <h:outputLabel />
+                <h:panelGroup>
+                    <h:commandButton action="#{usuarioController.salvar()}" value="Salvar" style="margin-right: 3px;" />
+                    <h:commandButton action="#{usuarioController.limpar()}" value="Novo" />
+                </h:panelGroup>
+            </h:panelGrid>
+            
+            <br/>
+            <br/>
+
+            <h:dataTable value="#{usuarioController.getListCharged()}" var="usu" cellpadding="10" border="1" >
+                <f:facet name="header">Lista de Usuários</f:facet>
+
+                <h:column>
+                    <f:facet name="header" >Id</f:facet>
+                    <h:outputText value="#{usu.id}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header" >Nome</f:facet>
+                    <h:outputText value="#{usu.nome}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header" >Sobrenome</f:facet>
+                    <h:outputText value="#{usu.sobrenome}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header" >Idade</f:facet>
+                    <h:outputText value="#{usu.idade}" />
+                </h:column>  
+                <h:column>
+                    <f:facet name="header" >Editar</f:facet>
+                    <h:commandLink id="cmdLinkEditar" value="Editar" >
+                        <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usu}" />
+                    </h:commandLink>
+                </h:column>  
+                <h:column>
+                    <f:facet name="header" >Excluir</f:facet>
+                    <h:commandLink value="Excluir" action="#{usuarioController.deletar()}" >
+                        <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usu}" />
+                    </h:commandLink>
+                </h:column> 
+            </h:dataTable>
+        </h:form>
     </body>
 </html>

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
     <!-- Define Persistence Unit -->
     <persistence-unit name="jsf_persistence_unit">
         <!--Deve declarar as classes (model) que quer trabalhar com o hibernate manipulando elas-->
         <!--Mas funcionou normalmente sem por essa classe aqui!! Não fez diferença pra mim-->
+        <class>com.mycompany.jsf_primefaces.model.Usuario</class>
         
         <properties>
             <!--Dados de Conexão com o banco de dados:-->
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/projeto_jsf"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/jsf_primefaces"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.connection.username" value="postgres"/>
             <property name="hibernate.connection.password" value="admin"/>
