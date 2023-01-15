@@ -4,9 +4,8 @@
  */
 package com.mycompany.jsf_primefaces.controller;
 
-import com.mycompany.jsf_primefaces.hibernate.dao.DAOGenerico;
+import com.mycompany.jsf_primefaces.hibernate.dao.DAOUsuario;
 import com.mycompany.jsf_primefaces.model.Usuario;
-import jakarta.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,13 +30,13 @@ public class UsuarioController implements Serializable {
     private Usuario usuario = new Usuario();
 
     @Inject
-    private DAOGenerico<Usuario> daoGenerico;
+    private DAOUsuario daoUsuario;
 
     private List<Usuario> listUsuario;
 
     public String salvar() {
         try {
-            setUsuario(daoGenerico.saveOrUpdate(usuario));
+            setUsuario(daoUsuario.saveOrUpdate(usuario));
             mostrarMsg("Registro salvo com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
         } catch (Exception ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,7 +56,8 @@ public class UsuarioController implements Serializable {
         try {
             if (getUsuario() != null
                     && getUsuario().getId() != null) {
-                daoGenerico.deletar(getUsuario());
+                //Remover Telefone e Usuarios em cascata! Tabela dependente deve ser excluida primeiro!!
+                daoUsuario.removerUsuarioETelefonesCascata(getUsuario());
                 setUsuario(new Usuario());
                 mostrarMsg("Registro removido com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
             }
@@ -91,7 +91,7 @@ public class UsuarioController implements Serializable {
 
     public List<Usuario> getListCharged() {
         try {
-            setListUsuario(daoGenerico.listar(Usuario.class));
+            setListUsuario(daoUsuario.listar(Usuario.class));
         } catch (Exception ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();

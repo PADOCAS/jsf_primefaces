@@ -40,6 +40,16 @@ public class DAOGenerico<E> implements Serializable {
         return entityManager;
     }
 
+    
+    /**
+     * Método para retornar o jpaUtil para poder fazer queries especificas usando o JPAUtil
+     * 
+     * @return 
+     */   
+    public JPAUtil getJpaUtil() {
+        return jpaUtil;
+    }
+
     public void salvar(E entity) throws Exception {
         EntityTransaction entityTransaction = entityManager.getTransaction();
 
