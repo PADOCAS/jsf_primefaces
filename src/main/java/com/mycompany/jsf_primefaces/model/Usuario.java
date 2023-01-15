@@ -34,6 +34,8 @@ public class Usuario implements Serializable {
 
     private Integer idade;
 
+    private String sexo;
+
     public Usuario() {
     }
 
@@ -83,6 +85,26 @@ public class Usuario implements Serializable {
 
     public void setIdade(Integer idade) {
         this.idade = idade;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getStrSexo() {
+        if (this.sexo != null) {
+            if (this.sexo.equals("M")) {
+                return "Masculino";
+            } else if (this.sexo.equals("F")) {
+                return "Feminino";
+            }
+        }
+
+        return null;
     }
 
     @Override

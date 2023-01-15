@@ -34,6 +34,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <h:outputLabel id="lblIdade" value="Idade"/>
                 <h:inputText id="txtIdade" value="#{usuarioController.usuario.idade}" style="width: 100px;" />
 
+                <h:outputLabel id="lblSexo" value="Sexo"/>
+                <h:selectOneMenu value="#{usuarioController.usuario.sexo}" >
+                    <f:selectItem itemValue="M" itemLabel="Masculino" />
+                    <f:selectItem itemValue="F" itemLabel="Feminino" />
+                </h:selectOneMenu>
+                
                 <h:outputLabel id="lblLogin" value="Login"/>
                 <h:inputText id="txtLogin" value="#{usuarioController.usuario.login}" style="width: 200px;" />
 
@@ -72,7 +78,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <h:column>
                     <f:facet name="header" >Idade</f:facet>
                     <h:outputText value="#{usu.idade}" />
-                </h:column>  
+                </h:column>
+                <h:column>
+                    <f:facet name="header" >Sexo</f:facet>
+                    <h:outputText value="#{usu.strSexo}" />
+                </h:column>
                 <h:column>
                     <f:facet name="header" >Editar</f:facet>
                     <h:commandLink id="cmdLinkEditar" immediate="true" value="Editar" >
