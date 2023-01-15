@@ -64,7 +64,13 @@ public class UsuarioController implements Serializable {
         } catch (Exception ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
-            mostrarMsg("Erro ao Deletar!\n" + ex.getMessage(), "ERRO!", FacesMessage.SEVERITY_ERROR);
+
+            if (ex.getMessage() != null
+                    && ex.getMessage().contains("org.hibernate.exception.ConstraintViolationException")) {
+                mostrarMsg("Erro ao Deletar!\nExistem telefones cadastrados para o usuário!\nNão é permitido a exclusão!", "ERRO!", FacesMessage.SEVERITY_ERROR);
+            } else {
+                mostrarMsg("Erro ao Deletar!\n" + ex.getMessage(), "ERRO!", FacesMessage.SEVERITY_ERROR);
+            }
         }
         return "";
     }

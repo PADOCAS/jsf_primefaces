@@ -5,6 +5,7 @@
         <!--Deve declarar as classes (model) que quer trabalhar com o hibernate manipulando elas-->
         <!--Mas funcionou normalmente sem por essa classe aqui!! Não fez diferença pra mim-->
         <class>com.mycompany.jsf_primefaces.model.Usuario</class>
+        <class>com.mycompany.jsf_primefaces.model.Telefone</class>
         
         <properties>
             <!--Dados de Conexão com o banco de dados:-->

@@ -51,7 +51,7 @@ public class DAOGenerico<E> implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
             entityTransaction.rollback(); // desfaz transacao se ocorrer erro ao persitir
-            throw new Exception("Erro ao Salvar!\n" + e.getMessage());
+            throw new Exception(e.getMessage());
         } finally {
             //Comita:
             if (entityTransaction.isActive()) {
@@ -77,7 +77,7 @@ public class DAOGenerico<E> implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
             transaction.rollback(); // desfaz transacao se ocorrer erro ao persitir
-            throw new Exception("Erro ao Salvar!\n" + e.getMessage());
+            throw new Exception(e.getMessage());
         } finally {
             //Comita:
             if (transaction.isActive()) {
@@ -118,7 +118,7 @@ public class DAOGenerico<E> implements Serializable {
             } catch (Exception e) {
                 e.printStackTrace();
                 transaction.rollback(); // desfaz transacao se ocorrer erro ao persitir
-                throw new Exception("Erro ao Excluir!\n" + e.getMessage());
+                throw new Exception(e.getMessage());
             } finally {
                 if (transaction.isActive()) {
                     transaction.commit();
@@ -140,7 +140,7 @@ public class DAOGenerico<E> implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
             transaction.rollback(); // desfaz transacao se ocorrer erro ao persitir
-            throw new Exception("Erro ao Listar!\n" + e.getMessage());
+            throw new Exception(e.getMessage());
         } finally {
             if (transaction.isActive()) {
                 transaction.commit();
@@ -163,7 +163,7 @@ public class DAOGenerico<E> implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
             transaction.rollback(); // desfaz transacao se ocorrer erro ao persitir
-            throw new Exception("Erro ao consultar!\n" + e.getMessage());
+            throw new Exception(e.getMessage());
         } finally {
             if (transaction.isActive()) {
                 transaction.commit();
