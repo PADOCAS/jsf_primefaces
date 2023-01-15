@@ -9,85 +9,86 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>JSF - PrimeFaces (Versão Html)</title>
+        <title>JSF - PrimeFaces (Versão com PrimeFaces)</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-    <h:body>        
-        <h:link value="Página JSF" outcome="index.jsf" />
-        <br/>
-        <h:link value="Página PrimeFaces" outcome="indexPrimeFaces.jsf" />
-        <br/>
-        
-        <h:form id="formUsuario">
-            <h:messages id="messageIndex" showDetail="true" showSummary="false" />
+    <h:body> 
+        <h:form>
+            <p:breadCrumb>
+                <p:menuitem />
+                <p:menuitem value="Página JSF" action="index.jsf" />
+                <p:menuitem value="Página PrimeFaces" action="indexPrimeFaces.jsf" />
+            </p:breadCrumb>
+        </h:form>
 
-            <h:panelGrid columns="2" >
+        <h:form id="formUsuario">
+            <p:messages id="messageIndex" showDetail="true" showSummary="false" />
+
+            <p:panelGrid columns="2" >
                 <h:outputLabel id="lblId" value="ID" />
-                <h:inputText id="txtId" readonly="true" value="#{usuarioController.usuario.id}" style="width: 100px;" />
+                <p:inputText id="txtId" readonly="true" value="#{usuarioController.usuario.id}" style="width: 100px;" />
 
                 <h:outputLabel id="lblNome" value="Nome"/>
-                <h:inputText id="txtNome" value="#{usuarioController.usuario.nome}" style="width: 150px;" required="true" requiredMessage="Nome é requerido!"/>
+                <p:inputText id="txtNome" value="#{usuarioController.usuario.nome}" style="width: 150px;" required="true" requiredMessage="Nome é requerido!"/>
 
                 <h:outputLabel id="lblSobrenome" value="Sobrenome"/>
-                <h:inputText id="txtSobrenome" value="#{usuarioController.usuario.sobrenome}" style="width: 400px;" required="true" requiredMessage="Sobrenome é requerido!" />
+                <p:inputText id="txtSobrenome" value="#{usuarioController.usuario.sobrenome}" style="width: 400px;" required="true" requiredMessage="Sobrenome é requerido!" />
 
                 <h:outputLabel id="lblIdade" value="Idade"/>
-                <h:inputText id="txtIdade" value="#{usuarioController.usuario.idade}" style="width: 100px;" />
+                <p:inputText id="txtIdade" value="#{usuarioController.usuario.idade}" style="width: 100px;" />
 
                 <h:outputLabel id="lblLogin" value="Login"/>
-                <h:inputText id="txtLogin" value="#{usuarioController.usuario.login}" style="width: 200px;" />
+                <p:inputText id="txtLogin" value="#{usuarioController.usuario.login}" style="width: 200px;" />
 
                 <h:outputLabel id="lblSenha" value="Senha"/>
-                <h:inputSecret id="txtSenha" value="#{usuarioController.usuario.senha}" style="width: 200px;" />
+                <p:password id="txtSenha" value="#{usuarioController.usuario.senha}" style="width: 200px;" />
+            </p:panelGrid>
 
-                <br/>
-
-                <h:outputLabel />
-                <h:panelGroup>
-                    <h:commandButton action="#{usuarioController.salvar()}" value="Salvar" style="margin-right: 3px;" />
-                    <h:commandButton id="btnLimpar" action="#{usuarioController.limpar()}" value="Novo" >
-                        <f:ajax execute="btnLimpar" render="formUsuario messageIndex"/>
-                    </h:commandButton>
-                </h:panelGroup>
-            </h:panelGrid>
+            <br/>
+            
+            <p:commandButton type="button" action="#{usuarioController.salvar()}" value="Salvar" style="margin-right: 3px;" />
+            <p:commandButton id="btnLimpar" type="button" action="#{usuarioController.limpar()}" value="Novo" >
+                <f:ajax execute="btnLimpar" render="formUsuario messageIndex"/>
+            </p:commandButton>
 
             <br/>
             <br/>
 
-            <h:dataTable value="#{usuarioController.getListCharged()}" var="usu" cellpadding="10" border="1" >
+            <p:dataTable value="#{usuarioController.getListCharged()}" var="usu"
+                         emptyMessage="Nenhum usuário encontrado!">
                 <f:facet name="header">Lista de Usuários</f:facet>
 
-                <h:column>
+                <p:column>
                     <f:facet name="header" >Id</f:facet>
                     <h:outputText value="#{usu.id}" />
-                </h:column>
-                <h:column>
+                </p:column>
+                <p:column>
                     <f:facet name="header" >Nome</f:facet>
                     <h:outputText value="#{usu.nome}" />
-                </h:column>
-                <h:column>
+                </p:column>
+                <p:column>
                     <f:facet name="header" >Sobrenome</f:facet>
                     <h:outputText value="#{usu.sobrenome}" />
-                </h:column>
-                <h:column>
+                </p:column>
+                <p:column>
                     <f:facet name="header" >Idade</f:facet>
                     <h:outputText value="#{usu.idade}" />
-                </h:column>  
-                <h:column>
+                </p:column>  
+                <p:column>
                     <f:facet name="header" >Editar</f:facet>
                     <h:commandLink id="cmdLinkEditar" immediate="true" value="Editar" >
                         <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usu}" />
                         <f:ajax execute="cmdLinkEditar" render="formUsuario messageIndex"/>
                     </h:commandLink>
-                </h:column>  
-                <h:column>
+                </p:column>  
+                <p:column>
                     <f:facet name="header" >Excluir</f:facet>
                     <h:commandLink id="cmdLinkExcluir" value="Excluir" immediate="true" action="#{usuarioController.deletar()}" >
                         <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usu}" />
                         <f:ajax execute="cmdLinkExcluir" render="formUsuario messageIndex"/>
                     </h:commandLink>
-                </h:column> 
-            </h:dataTable>
+                </p:column> 
+            </p:dataTable>
         </h:form>
     </h:body>
 </html>
