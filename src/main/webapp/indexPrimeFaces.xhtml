@@ -84,17 +84,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <f:facet name="header" >Sexo</f:facet>
                     <h:outputText value="#{usu.strSexo}" />
                 </p:column>
-                <p:column>
+                <p:column style="text-align: center;">
                     <f:facet name="header" >Editar</f:facet>
-                    <h:commandLink id="cmdLinkEditar" immediate="true" value="Editar" >
+                    <h:commandLink id="cmdLinkEditar" immediate="true" >
                         <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usu}" />
+                        <h:graphicImage name="editar.png" library="imagens" height="15" width="15" title="Editar"></h:graphicImage>
                         <f:ajax execute="cmdLinkEditar" render="formUsuario messageIndex"/>
                     </h:commandLink>
                 </p:column>  
-                <p:column>
+                <p:column style="text-align: center;">
                     <f:facet name="header" >Excluir</f:facet>
-                    <h:commandLink id="cmdLinkExcluir" value="Excluir" immediate="true" action="#{usuarioController.deletar()}" >
+                    <h:commandLink id="cmdLinkExcluir" immediate="true" action="#{usuarioController.deletar()}" >
                         <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usu}" />
+                        <h:graphicImage name="table_remove.png" library="imagens" height="15" width="15" title="Excluir"></h:graphicImage>
                         <f:ajax execute="cmdLinkExcluir" render="formUsuario messageIndex"/>
                     </h:commandLink>
                 </p:column> 
