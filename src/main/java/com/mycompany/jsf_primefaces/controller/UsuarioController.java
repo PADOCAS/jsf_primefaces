@@ -38,10 +38,11 @@ public class UsuarioController implements Serializable {
     public String salvar() {
         try {
             setUsuario(daoGenerico.saveOrUpdate(usuario));
+            mostrarMsg("Registro salvo com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
         } catch (Exception ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
-            mostrarMsg("Erro ao Salvar!\n" + ex.getMessage());
+            mostrarMsg("Erro ao Salvar!\n" + ex.getMessage(), "ERRO!", FacesMessage.SEVERITY_ERROR);
         }
 
         return ""; //Redirecionar para mesma tela após salvar
@@ -49,7 +50,6 @@ public class UsuarioController implements Serializable {
 
     public String limpar() {
         setUsuario(new Usuario());
-
         return "";
     }
 
@@ -59,17 +59,18 @@ public class UsuarioController implements Serializable {
                     && getUsuario().getId() != null) {
                 daoGenerico.deletar(getUsuario());
                 setUsuario(new Usuario());
+                mostrarMsg("Registro removido com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
             }
         } catch (Exception ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
-            mostrarMsg("Erro ao Deletar!\n" + ex.getMessage());
+            mostrarMsg("Erro ao Deletar!\n" + ex.getMessage(), "ERRO!", FacesMessage.SEVERITY_ERROR);
         }
         return "";
     }
 
-    private void mostrarMsg(String mensagem) {
-        FacesMessage message = new FacesMessage(mensagem);
+    private void mostrarMsg(String mensagem, String sumario, FacesMessage.Severity severity) {
+        FacesMessage message = new FacesMessage(severity, sumario, mensagem);
         //Pode ser dado a mensagem sobre algum componente especifico ou null quando é geral:
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
@@ -88,7 +89,7 @@ public class UsuarioController implements Serializable {
         } catch (Exception ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
-            mostrarMsg("Erro ao carregar Lista de Usuários!\n" + ex.getMessage());
+            mostrarMsg("Erro ao carregar Lista de Usuários!\n" + ex.getMessage(), "ERRO!", FacesMessage.SEVERITY_ERROR);
         }
 
         return getListUsuario();
