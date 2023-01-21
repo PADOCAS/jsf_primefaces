@@ -4,9 +4,15 @@
  */
 package com.mycompany.jsf_primefaces.controller;
 
+import com.google.gson.Gson;
 import com.mycompany.jsf_primefaces.hibernate.dao.DAOUsuario;
 import com.mycompany.jsf_primefaces.model.Usuario;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +20,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 
 /**
@@ -79,6 +86,46 @@ public class UsuarioController implements Serializable {
         FacesMessage message = new FacesMessage(severity, sumario, mensagem);
         //Pode ser dado a mensagem sobre algum componente especifico ou null quando é geral:
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void pesquisaCep(AjaxBehaviorEvent event) {
+        try {
+            if (getUsuario() != null
+                    && getUsuario().getCep() != null
+                    && !getUsuario().getCep().trim().isEmpty()) {
+                //Fazendo a requisição direta do webService:  
+                //URL exemplo: https://viacep.com.br/ws/17203040/json/
+                URL url = new URL("https://viacep.com.br/ws/" + getUsuario().getCep() + "/json/");
+                URLConnection urlConnection = url.openConnection();
+                InputStream inputStream = urlConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+
+                String cep;
+                StringBuilder jsonCep = new StringBuilder();
+
+                //Atribui a variavel cep e enquanto tiver algo vai ficar no while:
+                while ((cep = bufferedReader.readLine()) != null) {
+                    jsonCep.append(cep);
+                }
+
+                System.out.println("\nJson Recebido do VIACEP: \n" + jsonCep.toString());
+
+                //Como os atributos que criamos em Usuario são de mesmo nome que o Json do VIA cep vai mandar, vamos converter o json para uma instancia de Usuario:
+                Usuario cepUsuarioReceptorJson = new Gson().fromJson(jsonCep.toString(), Usuario.class);
+                if (cepUsuarioReceptorJson != null) {
+                    getUsuario().setLogradouro(cepUsuarioReceptorJson.getLogradouro());
+                    getUsuario().setComplemento(cepUsuarioReceptorJson.getComplemento());
+                    getUsuario().setBairro(cepUsuarioReceptorJson.getBairro());
+                    getUsuario().setLocalidade(cepUsuarioReceptorJson.getLocalidade());
+                    getUsuario().setUf(cepUsuarioReceptorJson.getUf());
+                    getUsuario().setIbge(cepUsuarioReceptorJson.getIbge());
+                    getUsuario().setGia(cepUsuarioReceptorJson.getGia());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarMsg("Erro ao consultar CEP!\n" + e.getMessage(), "ERRO!", FacesMessage.SEVERITY_ERROR);
+        }
     }
 
     public Usuario getUsuario() {

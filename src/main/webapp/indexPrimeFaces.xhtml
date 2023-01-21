@@ -43,6 +43,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <f:selectItem itemValue="F" itemLabel="Feminino" />
                 </p:selectOneMenu>
                 
+                <h:outputLabel id="lblCep" value="CEP" />
+                <p:inputText id="txtCep" value="#{usuarioController.usuario.cep}" >
+                    <f:ajax event="blur" execute="@this" listener="#{usuarioController.pesquisaCep}" render="txtLogradouro txtComplemento txtBairro txtLocalidade txtUf txtIbge txtGia messageIndex" />
+                </p:inputText>
+                
+                <h:outputLabel id="lblLogradouro" value="Logradouro" />
+                <p:inputText id="txtLogradouro" value="#{usuarioController.usuario.logradouro}" style="width: 400px;" />
+                
+                <h:outputLabel id="lblNrLogradouro" value="Número" />
+                <p:inputText id="txtNrLogradouro" value="#{usuarioController.usuario.numero}" />
+                
+                <h:outputLabel id="lblComplemento" value="Complemento" />
+                <p:inputText id="txtComplemento" value="#{usuarioController.usuario.complemento}" style="width: 400px;"/>
+                
+                <h:outputLabel id="lblBairro" value="Bairro" />
+                <p:inputText id="txtBairro" value="#{usuarioController.usuario.bairro}" style="width: 400px;" />
+                
+                <h:outputLabel id="lblLocalidade" value="Localidade" />
+                <p:inputText id="txtLocalidade" value="#{usuarioController.usuario.localidade}" style="width: 200px;" />
+                
+                <h:outputLabel id="lblUf" value="UF" />
+                <p:inputText id="txtUf" value="#{usuarioController.usuario.uf}" />
+                
+                <h:outputLabel id="lblIbge" value="IBGE" />
+                <p:inputText id="txtIbge" value="#{usuarioController.usuario.ibge}" />
+                
+                <h:outputLabel id="lblGia" value="GIA" />
+                <p:inputText id="txtGia" value="#{usuarioController.usuario.gia}" />
+                
                 <h:outputLabel id="lblLogin" value="Login"/>
                 <p:inputText id="txtLogin" value="#{usuarioController.usuario.login}" style="width: 200px;" />
 
