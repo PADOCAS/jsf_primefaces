@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Cadastro de Telefones do usuário</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>        
+        <h:link value="Página JSF" outcome="index.jsf" />
+        <br/>
+        <h:link value="Página PrimeFaces" outcome="indexPrimeFaces.jsf" />
+        <br/>
+
+        <h:form id="formTelefone">
+            <h:messages id="messageTelefone" showDetail="true" showSummary="false" />
+
+            <h:panelGrid columns="2" >
+                <h:outputLabel id="lblUsuario" value="Usuário" />
+                <h:inputText id="txtUsuario" readonly="true" value="#{telefoneController.nomeSobrenomeUsuario}" style="width: 500px;" />
+
+                <h:outputLabel id="lblId" value="ID" />
+                <h:inputText id="txtId" readonly="true" value="#{telefoneController.telefone.id}" style="width: 100px;" />
+
+                <h:outputLabel id="lblTelefone" value="Telefone" />
+                <h:inputText id="txtTelefone" value="#{telefoneController.telefone.telefone}" style="width: 150px;" />
+
+                <h:outputLabel id="lblTipo" value="Tipo" />
+                <h:inputText id="txtTipo" value="#{telefoneController.telefone.tipo}" style="width: 150px;" />  
+
+                <br/>
+
+                <h:outputLabel />
+                <h:panelGroup>
+                    <h:commandButton action="#{telefoneController.salvar()}" value="Salvar" style="margin-right: 3px;" />
+                    <h:commandButton id="btnLimpar" action="#{telefoneController.limpar()}" value="Novo" >
+                        <f:ajax execute="btnLimpar" render="formTelefone messageTelefone"/>
+                    </h:commandButton>                
+                </h:panelGroup>
+            </h:panelGrid>
+
+            <br/>
+            <br/>
+
+            <h:dataTable value="#{telefoneController.getChargedListTelefone()}" var="tel" cellpadding="10" border="1">
+                <f:facet name="header">Lista de Telefones</f:facet>
+
+                <h:column>
+                    <f:facet name="header" >Id</f:facet>
+                    <h:outputText value="#{tel.id}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header" >Telefone</f:facet>
+                    <h:outputText value="#{tel.telefone}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header" >Tipo</f:facet>
+                    <h:outputText value="#{tel.tipo}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header" >Editar</f:facet>
+                    <h:commandLink id="cmdLinkEditar" style="display: flex; justify-content: center;" immediate="true" >
+                        <f:setPropertyActionListener target="#{telefoneController.telefone}" value="#{tel}" />
+                        <h:graphicImage name="editar.png" library="imagens" height="15" width="15" title="Editar"></h:graphicImage>
+                        <f:ajax execute="cmdLinkEditar" render="formTelefone messageTelefone"/>
+                    </h:commandLink>
+                </h:column>  
+                <h:column>
+                    <f:facet name="header" >Excluir</f:facet>
+                    <h:commandLink id="cmdLinkExcluir" immediate="true" style="display: flex; justify-content: center;" action="#{telefoneController.deletar()}" >
+                        <f:setPropertyActionListener target="#{telefoneController.telefone}" value="#{tel}" />
+                        <h:graphicImage name="table_remove.png" library="imagens" height="15" width="15" title="Excluir"></h:graphicImage>
+                        <f:ajax execute="cmdLinkExcluir" render="formTelefone messageTelefone"/>
+                    </h:commandLink>
+                </h:column>          
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>

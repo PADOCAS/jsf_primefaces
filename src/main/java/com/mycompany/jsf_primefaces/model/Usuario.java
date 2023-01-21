@@ -5,11 +5,14 @@
 package com.mycompany.jsf_primefaces.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -35,6 +38,9 @@ public class Usuario implements Serializable {
     private Integer idade;
 
     private String sexo;
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+    private List<Telefone> listTelefone;
 
     public Usuario() {
     }
@@ -105,6 +111,14 @@ public class Usuario implements Serializable {
         }
 
         return null;
+    }
+
+    public List<Telefone> getListTelefone() {
+        return listTelefone;
+    }
+
+    public void setListTelefone(List<Telefone> listTelefone) {
+        this.listTelefone = listTelefone;
     }
 
     @Override

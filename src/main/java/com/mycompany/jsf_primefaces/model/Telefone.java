@@ -7,6 +7,7 @@ package com.mycompany.jsf_primefaces.model;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,9 @@ public class Telefone implements Serializable {
 
     private String telefone;
 
-    @ManyToOne(optional = false)
+    private String tipo;
+
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @org.hibernate.annotations.ForeignKey(name = "telefone_fk1")
     private Usuario usuario;
 
@@ -56,6 +59,14 @@ public class Telefone implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override

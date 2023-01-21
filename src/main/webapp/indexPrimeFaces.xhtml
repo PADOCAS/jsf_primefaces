@@ -64,27 +64,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                          emptyMessage="Nenhum usuário encontrado!">
                 <f:facet name="header">Lista de Usuários</f:facet>
 
-                <p:column>
+                <p:column style="width: 4%;">
                     <f:facet name="header" >Id</f:facet>
                     <h:outputText value="#{usu.id}" />
                 </p:column>
-                <p:column>
+                <p:column style="width: 10%;">
                     <f:facet name="header" >Nome</f:facet>
                     <h:outputText value="#{usu.nome}" />
                 </p:column>
-                <p:column>
+                <p:column style="width: 35%;">
                     <f:facet name="header" >Sobrenome</f:facet>
                     <h:outputText value="#{usu.sobrenome}" />
                 </p:column>
-                <p:column>
+                <p:column style="width: 5%;">
                     <f:facet name="header" >Idade</f:facet>
                     <h:outputText value="#{usu.idade}" />
                 </p:column>  
-                <p:column>
+                <p:column style="width: 6%;">
                     <f:facet name="header" >Sexo</f:facet>
                     <h:outputText value="#{usu.strSexo}" />
                 </p:column>
-                <p:column style="text-align: center;">
+                <p:column style="text-align: center; width: 6%;">
                     <f:facet name="header" >Editar</f:facet>
                     <h:commandLink id="cmdLinkEditar" immediate="true" >
                         <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usu}" />
@@ -92,14 +92,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <f:ajax execute="cmdLinkEditar" render="formUsuario messageIndex"/>
                     </h:commandLink>
                 </p:column>  
-                <p:column style="text-align: center;">
+                <p:column style="text-align: center; width: 6%;">
                     <f:facet name="header" >Excluir</f:facet>
                     <h:commandLink id="cmdLinkExcluir" immediate="true" action="#{usuarioController.deletar()}" >
                         <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usu}" />
                         <h:graphicImage name="table_remove.png" library="imagens" height="15" width="15" title="Excluir"></h:graphicImage>
                         <f:ajax execute="cmdLinkExcluir" render="formUsuario messageIndex"/>
                     </h:commandLink>
-                </p:column> 
+                </p:column>
+                <p:column style="text-align: center; width: 6%;">
+                    <f:facet name="header" >Telefone</f:facet>
+                    <h:commandLink id="cmdLinkTelefone" immediate="true" action="telefone.jsf" >
+                        <h:graphicImage name="phone.png" library="imagens" height="15" width="15" title="Telefone"></h:graphicImage>
+                        <f:param name="usuarioId" value="#{usu.id}" />
+                    </h:commandLink>
+                </p:column>
             </p:dataTable>
         </h:form>
     </h:body>

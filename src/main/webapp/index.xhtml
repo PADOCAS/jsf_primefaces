@@ -98,7 +98,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:graphicImage name="table_remove.png" library="imagens" height="15" width="15" title="Excluir"></h:graphicImage>
                         <f:ajax execute="cmdLinkExcluir" render="formUsuario messageIndex"/>
                     </h:commandLink>
-                </h:column> 
+                </h:column>
+                <h:column>
+                    <f:facet name="header" >Telefone</f:facet>
+                    <h:commandLink id="cmdLinkTelefone" immediate="true" style="display: flex; justify-content: center;" action="telefone.jsf" >
+                        <h:graphicImage name="phone.png" library="imagens" height="15" width="15" title="Telefone"></h:graphicImage>
+                        <f:param name="usuarioId" value="#{usu.id}" />
+                    </h:commandLink>
+                </h:column>                
             </h:dataTable>
         </h:form>
     </h:body>
