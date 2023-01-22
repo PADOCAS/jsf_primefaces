@@ -36,7 +36,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:inputText id="txtSobrenome" value="#{usuarioController.usuario.sobrenome}" pt:placeholder="Informe o Sobrenome" style="width: 400px;" required="true" requiredMessage="Sobrenome é requerido!" />
 
                 <h:outputLabel id="lblIdade" value="Idade"/>
-                <p:inputText id="txtIdade" value="#{usuarioController.usuario.idade}" pt:placeholder="Informe a Idade" style="width: 100px;" />
+                <p:inputText id="txtIdade" value="#{usuarioController.usuario.idade}" pt:placeholder="Informe a Idade" style="width: 150px;" />
 
                 <h:outputLabel id="lblSexo" value="Sexo"/>
                 <p:selectOneMenu value="#{usuarioController.usuario.sexo}" >
@@ -45,8 +45,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </p:selectOneMenu>
                 
                 <h:outputLabel id="lblCep" value="CEP" />
-                <p:inputText id="txtCep" value="#{usuarioController.usuario.cep}" >
-                    <f:ajax event="blur" execute="@this" listener="#{usuarioController.pesquisaCep}" pt:placeholder="Informe o CEP" render="txtLogradouro txtComplemento txtBairro txtLocalidade txtUf txtIbge txtGia messageIndex" />
+                <p:inputText id="txtCep" value="#{usuarioController.usuario.cep}" pt:placeholder="Informe o CEP" >
+                    <f:ajax event="blur" execute="@this" listener="#{usuarioController.pesquisaCep}" render="txtLogradouro txtComplemento txtBairro txtLocalidade txtUf txtIbge txtGia messageIndex" />
                 </p:inputText>
                 
                 <h:outputLabel id="lblLogradouro" value="Logradouro" />
@@ -74,18 +74,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:inputText id="txtGia" value="#{usuarioController.usuario.gia}" pt:placeholder="Informe a GIA" />
                 
                 <h:outputLabel id="lblLogin" value="Login"/>
-                <p:inputText id="txtLogin" value="#{usuarioController.usuario.login}" pt:placeholder="Informe o Login" style="width: 200px;" />
+                <p:inputText id="txtLogin" value="#{usuarioController.usuario.login}" pt:placeholder="Informe o Login" style="width: 200px;" required="true" requiredMessage="Login é requerido!" />
 
                 <h:outputLabel id="lblSenha" value="Senha"/>
-                <p:password id="txtSenha" value="#{usuarioController.usuario.senha}" pt:placeholder="Informe a Senha" style="width: 200px;" />
+                <p:password id="txtSenha" value="#{usuarioController.usuario.senha}" pt:placeholder="Informe a Senha" style="width: 200px;" required="true" requiredMessage="Senha é requerida!"/>
             </p:panelGrid>
 
             <br/>
             
-            <p:commandButton type="button" action="#{usuarioController.salvar()}" value="Salvar" style="margin-right: 3px;" />
-            <p:commandButton id="btnLimpar" type="button" action="#{usuarioController.limpar()}" value="Novo" >
-                <f:ajax execute="btnLimpar" render="formUsuario messageIndex"/>
-            </p:commandButton>
+            <p:commandButton ajax="false" action="#{usuarioController.salvar()}" value="Salvar" style="margin-right: 3px;" />
+            <p:commandButton id="btnLimpar" ajax="false" action="#{usuarioController.limpar()}" value="Novo" />
 
             <br/>
             <br/>
