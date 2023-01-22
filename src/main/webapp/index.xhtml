@@ -7,7 +7,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>JSF - PrimeFaces (Versão Html)</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -26,13 +27,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <h:inputText id="txtId" readonly="true" value="#{usuarioController.usuario.id}" style="width: 100px;" />
 
                 <h:outputLabel id="lblNome" value="Nome"/>
-                <h:inputText id="txtNome" value="#{usuarioController.usuario.nome}" style="width: 150px;" required="true" requiredMessage="Nome é requerido!"/>
+                <h:inputText id="txtNome" value="#{usuarioController.usuario.nome}" style="width: 150px;" pt:placeholder="Informe o Nome" required="true" requiredMessage="Nome é requerido!"/>
 
                 <h:outputLabel id="lblSobrenome" value="Sobrenome"/>
-                <h:inputText id="txtSobrenome" value="#{usuarioController.usuario.sobrenome}" style="width: 400px;" required="true" requiredMessage="Sobrenome é requerido!" />
+                <h:inputText id="txtSobrenome" value="#{usuarioController.usuario.sobrenome}" style="width: 400px;" pt:placeholder="Informe o Sobrenome" required="true" requiredMessage="Sobrenome é requerido!" />
 
                 <h:outputLabel id="lblIdade" value="Idade"/>
-                <h:inputText id="txtIdade" value="#{usuarioController.usuario.idade}" style="width: 100px;" />
+                <h:inputText id="txtIdade" value="#{usuarioController.usuario.idade}" pt:placeholder="Informe a Idade" style="width: 100px;" />
 
                 <h:outputLabel id="lblSexo" value="Sexo"/>
                 <h:selectOneMenu value="#{usuarioController.usuario.sexo}" >
@@ -42,38 +43,38 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 
                 <h:outputLabel id="lblCep" value="CEP" />
                 <h:inputText id="txtCep" value="#{usuarioController.usuario.cep}" >
-                    <f:ajax event="blur" execute="@this" listener="#{usuarioController.pesquisaCep}" render="txtLogradouro txtComplemento txtBairro txtLocalidade txtUf txtIbge txtGia messageIndex" />
+                    <f:ajax event="blur" execute="@this" listener="#{usuarioController.pesquisaCep}" pt:placeholder="Informe o CEP" render="txtLogradouro txtComplemento txtBairro txtLocalidade txtUf txtIbge txtGia messageIndex" />
                 </h:inputText>
                 
                 <h:outputLabel id="lblLogradouro" value="Logradouro" />
-                <h:inputText id="txtLogradouro" value="#{usuarioController.usuario.logradouro}" style="width: 400px;" />
+                <h:inputText id="txtLogradouro" value="#{usuarioController.usuario.logradouro}" pt:placeholder="Informe o Logradouro" style="width: 400px;" />
                 
                 <h:outputLabel id="lblNrLogradouro" value="Número" />
-                <h:inputText id="txtNrLogradouro" value="#{usuarioController.usuario.numero}" />
+                <h:inputText id="txtNrLogradouro" value="#{usuarioController.usuario.numero}" pt:placeholder="Informe o Número" />
                 
                 <h:outputLabel id="lblComplemento" value="Complemento" />
-                <h:inputText id="txtComplemento" value="#{usuarioController.usuario.complemento}" style="width: 400px;"/>
+                <h:inputText id="txtComplemento" value="#{usuarioController.usuario.complemento}" pt:placeholder="Informe o Complemento" style="width: 400px;"/>
                 
                 <h:outputLabel id="lblBairro" value="Bairro" />
-                <h:inputText id="txtBairro" value="#{usuarioController.usuario.bairro}" style="width: 400px;" />
+                <h:inputText id="txtBairro" value="#{usuarioController.usuario.bairro}" pt:placeholder="Informe o Bairro" style="width: 400px;" />
                 
                 <h:outputLabel id="lblLocalidade" value="Localidade" />
-                <h:inputText id="txtLocalidade" value="#{usuarioController.usuario.localidade}" style="width: 200px;" />
+                <h:inputText id="txtLocalidade" value="#{usuarioController.usuario.localidade}" pt:placeholder="Informe a Localidade" style="width: 200px;" />
                 
                 <h:outputLabel id="lblUf" value="UF" />
-                <h:inputText id="txtUf" value="#{usuarioController.usuario.uf}" />
+                <h:inputText id="txtUf" value="#{usuarioController.usuario.uf}" pt:placeholder="Informe a UF" />
                 
                 <h:outputLabel id="lblIbge" value="IBGE" />
-                <h:inputText id="txtIbge" value="#{usuarioController.usuario.ibge}" />
+                <h:inputText id="txtIbge" value="#{usuarioController.usuario.ibge}" pt:placeholder="Informe o IBGE" />
                 
                 <h:outputLabel id="lblGia" value="GIA" />
-                <h:inputText id="txtGia" value="#{usuarioController.usuario.gia}" />
+                <h:inputText id="txtGia" value="#{usuarioController.usuario.gia}" pt:placeholder="Informe a GIA"/>
                 
                 <h:outputLabel id="lblLogin" value="Login"/>
-                <h:inputText id="txtLogin" value="#{usuarioController.usuario.login}" style="width: 200px;" />
+                <h:inputText id="txtLogin" value="#{usuarioController.usuario.login}" pt:placeholder="Informe o Login" style="width: 200px;" />
 
                 <h:outputLabel id="lblSenha" value="Senha"/>
-                <h:inputSecret id="txtSenha" value="#{usuarioController.usuario.senha}" style="width: 200px;" />
+                <h:inputSecret id="txtSenha" value="#{usuarioController.usuario.senha}" pt:placeholder="Informe a Senha" style="width: 200px;" />
 
                 <br/>
 

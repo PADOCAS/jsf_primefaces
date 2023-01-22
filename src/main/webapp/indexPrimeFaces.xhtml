@@ -7,7 +7,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>JSF - PrimeFaces (Versão com PrimeFaces)</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -29,13 +30,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:inputText id="txtId" readonly="true" value="#{usuarioController.usuario.id}" style="width: 100px;" />
 
                 <h:outputLabel id="lblNome" value="Nome"/>
-                <p:inputText id="txtNome" value="#{usuarioController.usuario.nome}" style="width: 150px;" required="true" requiredMessage="Nome é requerido!"/>
+                <p:inputText id="txtNome" value="#{usuarioController.usuario.nome}" pt:placeholder="Informe o Nome" style="width: 150px;" required="true" requiredMessage="Nome é requerido!"/>
 
                 <h:outputLabel id="lblSobrenome" value="Sobrenome"/>
-                <p:inputText id="txtSobrenome" value="#{usuarioController.usuario.sobrenome}" style="width: 400px;" required="true" requiredMessage="Sobrenome é requerido!" />
+                <p:inputText id="txtSobrenome" value="#{usuarioController.usuario.sobrenome}" pt:placeholder="Informe o Sobrenome" style="width: 400px;" required="true" requiredMessage="Sobrenome é requerido!" />
 
                 <h:outputLabel id="lblIdade" value="Idade"/>
-                <p:inputText id="txtIdade" value="#{usuarioController.usuario.idade}" style="width: 100px;" />
+                <p:inputText id="txtIdade" value="#{usuarioController.usuario.idade}" pt:placeholder="Informe a Idade" style="width: 100px;" />
 
                 <h:outputLabel id="lblSexo" value="Sexo"/>
                 <p:selectOneMenu value="#{usuarioController.usuario.sexo}" >
@@ -45,38 +46,38 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 
                 <h:outputLabel id="lblCep" value="CEP" />
                 <p:inputText id="txtCep" value="#{usuarioController.usuario.cep}" >
-                    <f:ajax event="blur" execute="@this" listener="#{usuarioController.pesquisaCep}" render="txtLogradouro txtComplemento txtBairro txtLocalidade txtUf txtIbge txtGia messageIndex" />
+                    <f:ajax event="blur" execute="@this" listener="#{usuarioController.pesquisaCep}" pt:placeholder="Informe o CEP" render="txtLogradouro txtComplemento txtBairro txtLocalidade txtUf txtIbge txtGia messageIndex" />
                 </p:inputText>
                 
                 <h:outputLabel id="lblLogradouro" value="Logradouro" />
-                <p:inputText id="txtLogradouro" value="#{usuarioController.usuario.logradouro}" style="width: 400px;" />
+                <p:inputText id="txtLogradouro" value="#{usuarioController.usuario.logradouro}" pt:placeholder="Informe o Logradouro" style="width: 400px;" />
                 
                 <h:outputLabel id="lblNrLogradouro" value="Número" />
-                <p:inputText id="txtNrLogradouro" value="#{usuarioController.usuario.numero}" />
+                <p:inputText id="txtNrLogradouro" value="#{usuarioController.usuario.numero}" pt:placeholder="Informe o Número" />
                 
                 <h:outputLabel id="lblComplemento" value="Complemento" />
-                <p:inputText id="txtComplemento" value="#{usuarioController.usuario.complemento}" style="width: 400px;"/>
+                <p:inputText id="txtComplemento" value="#{usuarioController.usuario.complemento}" pt:placeholder="Informe o Complemento" style="width: 400px;"/>
                 
                 <h:outputLabel id="lblBairro" value="Bairro" />
-                <p:inputText id="txtBairro" value="#{usuarioController.usuario.bairro}" style="width: 400px;" />
+                <p:inputText id="txtBairro" value="#{usuarioController.usuario.bairro}" pt:placeholder="Informe o Bairro" style="width: 400px;" />
                 
                 <h:outputLabel id="lblLocalidade" value="Localidade" />
-                <p:inputText id="txtLocalidade" value="#{usuarioController.usuario.localidade}" style="width: 200px;" />
+                <p:inputText id="txtLocalidade" value="#{usuarioController.usuario.localidade}" pt:placeholder="Informe a Localidade" style="width: 200px;" />
                 
                 <h:outputLabel id="lblUf" value="UF" />
-                <p:inputText id="txtUf" value="#{usuarioController.usuario.uf}" />
+                <p:inputText id="txtUf" value="#{usuarioController.usuario.uf}" pt:placeholder="Informe a UF" />
                 
                 <h:outputLabel id="lblIbge" value="IBGE" />
-                <p:inputText id="txtIbge" value="#{usuarioController.usuario.ibge}" />
+                <p:inputText id="txtIbge" value="#{usuarioController.usuario.ibge}" pt:placeholder="Informe o IBGE" />
                 
                 <h:outputLabel id="lblGia" value="GIA" />
-                <p:inputText id="txtGia" value="#{usuarioController.usuario.gia}" />
+                <p:inputText id="txtGia" value="#{usuarioController.usuario.gia}" pt:placeholder="Informe a GIA" />
                 
                 <h:outputLabel id="lblLogin" value="Login"/>
-                <p:inputText id="txtLogin" value="#{usuarioController.usuario.login}" style="width: 200px;" />
+                <p:inputText id="txtLogin" value="#{usuarioController.usuario.login}" pt:placeholder="Informe o Login" style="width: 200px;" />
 
                 <h:outputLabel id="lblSenha" value="Senha"/>
-                <p:password id="txtSenha" value="#{usuarioController.usuario.senha}" style="width: 200px;" />
+                <p:password id="txtSenha" value="#{usuarioController.usuario.senha}" pt:placeholder="Informe a Senha" style="width: 200px;" />
             </p:panelGrid>
 
             <br/>

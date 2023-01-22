@@ -7,7 +7,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>Cadastro de Telefones do usuário</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -29,10 +30,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <h:inputText id="txtId" readonly="true" value="#{telefoneController.telefone.id}" style="width: 100px;" />
 
                 <h:outputLabel id="lblTelefone" value="Telefone" />
-                <h:inputText id="txtTelefone" value="#{telefoneController.telefone.telefone}" style="width: 150px;" />
+                <h:inputText id="txtTelefone" value="#{telefoneController.telefone.telefone}" pt:placeholder="Informe o Telefone" style="width: 150px;" />
 
                 <h:outputLabel id="lblTipo" value="Tipo" />
-                <h:inputText id="txtTipo" value="#{telefoneController.telefone.tipo}" style="width: 150px;" />  
+                <h:inputText id="txtTipo" value="#{telefoneController.telefone.tipo}" pt:placeholder="Informe o Tipo" style="width: 150px;" />  
 
                 <br/>
 
