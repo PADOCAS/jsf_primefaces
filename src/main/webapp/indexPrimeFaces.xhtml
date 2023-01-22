@@ -83,7 +83,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             <br/>
             
             <p:commandButton ajax="false" action="#{usuarioController.salvar()}" value="Salvar" style="margin-right: 3px;" />
-            <p:commandButton id="btnLimpar" ajax="false" action="#{usuarioController.limpar()}" value="Novo" />
+            <p:commandButton id="btnLimpar" immediate="true" action="#{usuarioController.limpar()}" value="Novo" >
+                <f:ajax execute="btnLimpar" render="formUsuario messageIndex"/>
+            </p:commandButton>
 
             <br/>
             <br/>
