@@ -13,15 +13,29 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
+import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.charts.ChartData;
+import org.primefaces.model.charts.axes.cartesian.CartesianScales;
+import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
+import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearTicks;
+import org.primefaces.model.charts.bar.BarChartDataSet;
+import org.primefaces.model.charts.bar.BarChartModel;
+import org.primefaces.model.charts.bar.BarChartOptions;
+import org.primefaces.model.charts.optionconfig.animation.Animation;
+import org.primefaces.model.charts.optionconfig.legend.Legend;
+import org.primefaces.model.charts.optionconfig.legend.LegendLabel;
+import org.primefaces.model.charts.optionconfig.title.Title;
 
 /**
  *
@@ -41,9 +55,17 @@ public class UsuarioController implements Serializable {
 
     private List<Usuario> listUsuario;
 
+    private BarChartModel barChartModel;
+
+    @PostConstruct
+    public void initComponents() {
+        carregarGrafico();
+    }
+
     public String salvar() {
         try {
             setUsuario(daoUsuario.saveOrUpdate(usuario));
+            carregarGrafico();
             mostrarMsg("Registro salvo com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
         } catch (Exception ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,6 +88,7 @@ public class UsuarioController implements Serializable {
                 //Remover Telefone e Usuarios em cascata! Tabela dependente deve ser excluida primeiro!!
                 daoUsuario.removerUsuarioETelefonesCascata(getUsuario());
                 setUsuario(new Usuario());
+                carregarGrafico();
                 mostrarMsg("Registro removido com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
             }
         } catch (Exception ex) {
@@ -80,6 +103,101 @@ public class UsuarioController implements Serializable {
             }
         }
         return "";
+    }
+
+    private String getStrRgbaRandomColorGrafico(Boolean isBackground) {
+        StringBuilder str = new StringBuilder();
+
+        if (isBackground) {
+            str.append("rgba(");
+        } else {
+            str.append("rgb(");
+        }
+        str.append(String.valueOf(Math.floor(Math.random() * 256)));
+        str.append(", ").append(String.valueOf(Math.floor(Math.random() * 256)));
+        str.append(", ").append(String.valueOf(Math.floor(Math.random() * 256)));
+
+        if (isBackground) {
+            str.append(", 0.2)");
+        } else {
+            str.append(")");
+        }
+
+        return str.toString();
+    }
+
+    public void carregarGrafico() {
+        setBarChartModel(new BarChartModel());
+
+        try {
+            List<Usuario> listUsuarioChart = daoUsuario.listar(Usuario.class);
+
+            if (listUsuarioChart != null
+                    && !listUsuarioChart.isEmpty()) {
+                ChartData data = new ChartData();
+
+                BarChartDataSet barDataSet = new BarChartDataSet();
+                barDataSet.setLabel("Salário dos usuários");
+
+                List<Number> listSalarios = new ArrayList<>();
+                List<String> listNomes = new ArrayList<>();
+                List<String> borderColor = new ArrayList<>();
+                List<String> bgColor = new ArrayList<>();
+
+                for (Usuario usu : listUsuarioChart) {
+                    listSalarios.add(usu.getSalario() == null ? Double.valueOf("0") : usu.getSalario());
+                    listNomes.add(usu.getNome() + " " + usu.getSobrenome());
+                    bgColor.add(getStrRgbaRandomColorGrafico(true));
+                    borderColor.add("rgb(0, 0, 0)");
+                }
+
+                barDataSet.setBackgroundColor(bgColor);
+                barDataSet.setBorderColor(borderColor);
+                barDataSet.setBorderWidth(1);
+                barDataSet.setData(listSalarios);
+                data.setLabels(listNomes);
+                data.addChartDataSet(barDataSet);
+
+                getBarChartModel().setData(data);
+
+                //Options
+                BarChartOptions options = new BarChartOptions();
+                CartesianScales cScales = new CartesianScales();
+                CartesianLinearAxes linearAxes = new CartesianLinearAxes();
+                linearAxes.setOffset(true);
+                linearAxes.setBeginAtZero(true);
+                CartesianLinearTicks ticks = new CartesianLinearTicks();
+                linearAxes.setTicks(ticks);
+                cScales.addYAxesData(linearAxes);
+                options.setScales(cScales);
+
+                Title title = new Title();
+                title.setDisplay(false);
+                title.setText("Salário dos Usuários");
+                options.setTitle(title);
+
+                Legend legend = new Legend();
+                legend.setDisplay(true);
+                legend.setPosition("top");
+                LegendLabel legendLabels = new LegendLabel();
+                legendLabels.setFontStyle("italic");
+                legendLabels.setFontColor("#2980B9");
+                legendLabels.setFontSize(24);
+                legend.setLabels(legendLabels);
+                options.setLegend(legend);
+
+                // disable animation
+                Animation animation = new Animation();
+                animation.setDuration(0);
+                options.setAnimation(animation);
+
+                getBarChartModel().setOptions(options);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            mostrarMsg("Erro ao carregar Gráfico!\n" + ex.getMessage(), "ERRO!", FacesMessage.SEVERITY_ERROR);
+        }
     }
 
     private void mostrarMsg(String mensagem, String sumario, FacesMessage.Severity severity) {
@@ -154,6 +272,14 @@ public class UsuarioController implements Serializable {
 
     public void setListUsuario(List<Usuario> listUsuario) {
         this.listUsuario = listUsuario;
+    }
+
+    public BarChartModel getBarChartModel() {
+        return barChartModel;
+    }
+
+    public void setBarChartModel(BarChartModel barChartModel) {
+        this.barChartModel = barChartModel;
     }
 
 }

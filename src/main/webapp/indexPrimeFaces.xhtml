@@ -38,41 +38,44 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <h:outputLabel id="lblIdade" value="Idade"/>
                 <p:inputText id="txtIdade" value="#{usuarioController.usuario.idade}" pt:placeholder="Informe a Idade" style="width: 150px;" />
 
+                <h:outputLabel id="lblSalario" value="Salário"/>
+                <p:inputText id="txtSalario" value="#{usuarioController.usuario.salario}" pt:placeholder="Informe o Salário" style="width: 200px;" />
+
                 <h:outputLabel id="lblSexo" value="Sexo"/>
                 <p:selectOneMenu value="#{usuarioController.usuario.sexo}" >
                     <f:selectItem itemValue="M" itemLabel="Masculino" />
                     <f:selectItem itemValue="F" itemLabel="Feminino" />
                 </p:selectOneMenu>
-                
+
                 <h:outputLabel id="lblCep" value="CEP" />
                 <p:inputText id="txtCep" value="#{usuarioController.usuario.cep}" pt:placeholder="Informe o CEP" >
                     <f:ajax event="blur" execute="@this" listener="#{usuarioController.pesquisaCep}" render="txtLogradouro txtComplemento txtBairro txtLocalidade txtUf txtIbge txtGia messageIndex" />
                 </p:inputText>
-                
+
                 <h:outputLabel id="lblLogradouro" value="Logradouro" />
                 <p:inputText id="txtLogradouro" value="#{usuarioController.usuario.logradouro}" pt:placeholder="Informe o Logradouro" style="width: 400px;" />
-                
+
                 <h:outputLabel id="lblNrLogradouro" value="Número" />
                 <p:inputText id="txtNrLogradouro" value="#{usuarioController.usuario.numero}" pt:placeholder="Informe o Número" />
-                
+
                 <h:outputLabel id="lblComplemento" value="Complemento" />
                 <p:inputText id="txtComplemento" value="#{usuarioController.usuario.complemento}" pt:placeholder="Informe o Complemento" style="width: 400px;"/>
-                
+
                 <h:outputLabel id="lblBairro" value="Bairro" />
                 <p:inputText id="txtBairro" value="#{usuarioController.usuario.bairro}" pt:placeholder="Informe o Bairro" style="width: 400px;" />
-                
+
                 <h:outputLabel id="lblLocalidade" value="Localidade" />
                 <p:inputText id="txtLocalidade" value="#{usuarioController.usuario.localidade}" pt:placeholder="Informe a Localidade" style="width: 200px;" />
-                
+
                 <h:outputLabel id="lblUf" value="UF" />
                 <p:inputText id="txtUf" value="#{usuarioController.usuario.uf}" pt:placeholder="Informe a UF" />
-                
+
                 <h:outputLabel id="lblIbge" value="IBGE" />
                 <p:inputText id="txtIbge" value="#{usuarioController.usuario.ibge}" pt:placeholder="Informe o IBGE" />
-                
+
                 <h:outputLabel id="lblGia" value="GIA" />
                 <p:inputText id="txtGia" value="#{usuarioController.usuario.gia}" pt:placeholder="Informe a GIA" />
-                
+
                 <h:outputLabel id="lblLogin" value="Login"/>
                 <p:inputText id="txtLogin" value="#{usuarioController.usuario.login}" pt:placeholder="Informe o Login" style="width: 200px;" required="true" requiredMessage="Login é requerido!" />
 
@@ -81,7 +84,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             </p:panelGrid>
 
             <br/>
-            
+
             <p:commandButton ajax="false" action="#{usuarioController.salvar()}" value="Salvar" style="margin-right: 3px;" />
             <p:commandButton id="btnLimpar" immediate="true" action="#{usuarioController.limpar()}" value="Novo" >
                 <f:ajax execute="btnLimpar" render="formUsuario messageIndex"/>
@@ -138,6 +141,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     </h:commandLink>
                 </p:column>
             </p:dataTable>
+
+            <div class="divGrafico">
+                <p:barChart model="#{usuarioController.barChartModel}" style="width: 100%; height: 500px;"/>
+            </div>
         </h:form>
     </h:body>
 </html>

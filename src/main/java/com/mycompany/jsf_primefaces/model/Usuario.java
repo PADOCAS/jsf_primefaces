@@ -57,6 +57,8 @@ public class Usuario implements Serializable {
 
     private String numero;
 
+    private Double salario;
+
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     private List<Telefone> listTelefone;
 
@@ -209,6 +211,14 @@ public class Usuario implements Serializable {
 
     public void setNumero(String numero) {
         this.numero = numero;
+    }
+
+    public Double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(Double salario) {
+        this.salario = salario;
     }
 
     @Override
