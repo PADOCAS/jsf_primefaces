@@ -86,6 +86,35 @@ public class UsuarioController implements Serializable {
         setUsuario(new Usuario());
         return "";
     }
+    
+    public void editarTeste() {
+        System.out.println(getEmail().getEmailUser());
+        mostrarMsg(getEmail().getEmailUser(), "Ok!", FacesMessage.SEVERITY_INFO);
+    }
+
+    public void deletarEmail() {
+        try {
+            if (getUsuario() != null
+                    && getEmail() != null) {
+                daoEmail.deletar(getEmail());
+                if (getUsuario().getListEmail() != null
+                        && !getUsuario().getListEmail().isEmpty()) {
+                    getUsuario().getListEmail().remove(getEmail());
+                }
+                //Após salvar, seta um novo email!
+                setEmail(new Email());
+                mostrarMsg("E-mail removido com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            mostrarMsg("Erro ao Remover E-mail!\n" + ex.getMessage(), "ERRO!", FacesMessage.SEVERITY_ERROR);
+        }
+    }
+    
+    public void limpaEmail() {
+        setEmail(new Email());
+    }
 
     public void salvarEmail() {
         try {
@@ -96,12 +125,12 @@ public class UsuarioController implements Serializable {
                     getEmail().setUsuario(getUsuario());
                     //Salva e seta o email com a chave já carregada!
                     setEmail(daoEmail.saveOrUpdate(getEmail()));
-                    
-                    if(getEmail() != null) {
-                        if(getUsuario().getListEmail() == null) {
+
+                    if (getEmail() != null) {
+                        if (getUsuario().getListEmail() == null) {
                             getUsuario().setListEmail(new ArrayList<>());
                         }
-                        
+
                         getUsuario().getListEmail().add(getEmail());
                         //Após salvar, seta um novo email!
                         setEmail(new Email());
