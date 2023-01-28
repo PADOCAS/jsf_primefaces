@@ -59,8 +59,11 @@ public class Usuario implements Serializable {
 
     private Double salario;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Telefone> listTelefone;
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Email> listEmail;
 
     public Usuario() {
     }
@@ -219,6 +222,14 @@ public class Usuario implements Serializable {
 
     public void setSalario(Double salario) {
         this.salario = salario;
+    }
+
+    public List<Email> getListEmail() {
+        return listEmail;
+    }
+
+    public void setListEmail(List<Email> listEmail) {
+        this.listEmail = listEmail;
     }
 
     @Override

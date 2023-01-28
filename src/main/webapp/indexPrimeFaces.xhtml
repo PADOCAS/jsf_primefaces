@@ -23,14 +23,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         </h:form>
 
         <h:form id="formUsuario">
-            <p:messages id="messageIndex" showDetail="true" showSummary="false" />
+            <p:growl id="messageIndex" showDetail="true" showSummary="false" />
 
             <p:panelGrid columns="2" >
                 <h:outputLabel id="lblId" value="ID" />
                 <p:inputText id="txtId" readonly="true" value="#{usuarioController.usuario.id}" style="width: 100px;" />
 
                 <h:outputLabel id="lblNome" value="Nome"/>
-                <p:inputText id="txtNome" value="#{usuarioController.usuario.nome}" pt:placeholder="Informe o Nome" style="width: 150px;" required="true" requiredMessage="Nome é requerido!"/>
+                <p:inputText id="txtNome" value="#{usuarioController.usuario.nome}" style="width: 150px;" required="true" requiredMessage="Nome é requerido!" >
+                    <p:watermark value="Informe o Nome" for="txtNome" />
+                </p:inputText>
 
                 <h:outputLabel id="lblSobrenome" value="Sobrenome"/>
                 <p:inputText id="txtSobrenome" value="#{usuarioController.usuario.sobrenome}" pt:placeholder="Informe o Sobrenome" style="width: 400px;" required="true" requiredMessage="Sobrenome é requerido!" />
@@ -140,11 +142,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <f:param name="usuarioId" value="#{usu.id}" />
                     </h:commandLink>
                 </p:column>
+                <p:column style="text-align: center; width: 6%;">
+                    <f:facet name="header" >E-mail</f:facet>
+                    <p:commandLink id="cmdLinkEmail" immediate="true" update="@form:dialogEmail" oncomplete="PF('dialogEmail').show();" >
+                        <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usu}" />
+                        <h:graphicImage name="email.png" library="imagens" height="15" width="15" title="E-mail"></h:graphicImage>
+                    </p:commandLink>
+                </p:column>
             </p:dataTable>
 
             <div class="divGrafico">
                 <p:barChart model="#{usuarioController.barChartModel}" style="width: 100%; height: 500px;"/>
             </div>
+
+            <p:dialog id="dialogEmail" widgetVar="dialogEmail" header="E-mails" modal="true" position="center" resizable="false" >
+                <p:panelGrid id="pnlGridDialogTel" columns="2" >
+                    <h:outputLabel id="lblUsuarioDialogTel" value="Usuário" />
+                    <p:outputLabel id="txtUsuarioDialogTel" value="#{usuarioController.nomeSobrenomeUsuario}" style="width: 350px;" />
+
+                    <h:outputLabel id="lblEmailDialogTel" value="E-mail" />
+                    <p:inputText id="txtEmailDialogTel" value="#{usuarioController.email.emailUser}" style="width: 350px;" pt:placeholder="Informe o E-mail" required="true" requiredMessage="E-mail é requerido!" />
+                </p:panelGrid>
+
+                <br/>
+
+                <p:commandButton id="btnSalvarEmail" process="dialogEmail" update="pnlGridDialogTel messageIndex" actionListener="#{usuarioController.salvarEmail()}" value="Salvar" />
+            </p:dialog>
         </h:form>
     </h:body>
 </html>

@@ -5,7 +5,9 @@
 package com.mycompany.jsf_primefaces.controller;
 
 import com.google.gson.Gson;
+import com.mycompany.jsf_primefaces.hibernate.dao.DAOEmail;
 import com.mycompany.jsf_primefaces.hibernate.dao.DAOUsuario;
+import com.mycompany.jsf_primefaces.model.Email;
 import com.mycompany.jsf_primefaces.model.Usuario;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -24,7 +26,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
-import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
 import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
@@ -53,9 +54,14 @@ public class UsuarioController implements Serializable {
     @Inject
     private DAOUsuario daoUsuario;
 
+    @Inject
+    private DAOEmail daoEmail;
+
     private List<Usuario> listUsuario;
 
     private BarChartModel barChartModel;
+
+    private Email email = new Email();
 
     @PostConstruct
     public void initComponents() {
@@ -79,6 +85,37 @@ public class UsuarioController implements Serializable {
     public String limpar() {
         setUsuario(new Usuario());
         return "";
+    }
+
+    public void salvarEmail() {
+        try {
+            if (getUsuario() != null
+                    && getEmail() != null) {
+                if (getEmail().getEmailUser() != null
+                        && !getEmail().getEmailUser().trim().isEmpty()) {
+                    getEmail().setUsuario(getUsuario());
+                    //Salva e seta o email com a chave já carregada!
+                    setEmail(daoEmail.saveOrUpdate(getEmail()));
+                    
+                    if(getEmail() != null) {
+                        if(getUsuario().getListEmail() == null) {
+                            getUsuario().setListEmail(new ArrayList<>());
+                        }
+                        
+                        getUsuario().getListEmail().add(getEmail());
+                        //Após salvar, seta um novo email!
+                        setEmail(new Email());
+                        mostrarMsg("E-mail salvo com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
+                    }
+                } else {
+                    mostrarMsg("E-mail deve ser informado!", "Atenção!", FacesMessage.SEVERITY_WARN);
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            mostrarMsg("Erro ao Salvar E-mail!\n" + ex.getMessage(), "ERRO!", FacesMessage.SEVERITY_ERROR);
+        }
     }
 
     public String deletar() {
@@ -246,6 +283,21 @@ public class UsuarioController implements Serializable {
         }
     }
 
+    public String getNomeSobrenomeUsuario() {
+        if (getUsuario() != null
+                && getUsuario().getId() != null
+                && getUsuario().getNome() != null
+                && getUsuario().getSobrenome() != null) {
+            StringBuilder str = new StringBuilder();
+            str.append("(").append(getUsuario().getId().toString()).append(") ");
+            str.append(getUsuario().getNome()).append(" ").append(getUsuario().getSobrenome());
+
+            return str.toString();
+        }
+
+        return null;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -280,6 +332,14 @@ public class UsuarioController implements Serializable {
 
     public void setBarChartModel(BarChartModel barChartModel) {
         this.barChartModel = barChartModel;
+    }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public void setEmail(Email email) {
+        this.email = email;
     }
 
 }
