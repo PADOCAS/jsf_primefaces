@@ -63,22 +63,28 @@ public class UsuarioController implements Serializable {
 
     private Email email = new Email();
 
+    private String pesquisaNome;
+
     @PostConstruct
     public void initComponents() {
-        carregarGrafico();
+        getListCharged();
+        carregarGrafico(false);
+        setPesquisaNome(null);
     }
 
     public String salvar() {
         try {
-            if(getUsuario() != null) {
+            if (getUsuario() != null) {
                 //Iniciando as Listas (LAZY, caso estejam nulas.. se não da erro no hibernate
-                if(getUsuario().getListEmail() == null) {
+                if (getUsuario().getListEmail() == null) {
                     getUsuario().setListEmail(new ArrayList<>());
                 }
             }
             daoUsuario.saveOrUpdate(usuario);
-            setUsuario(new Usuario());            
-            carregarGrafico();
+            setUsuario(new Usuario());
+            getListCharged();
+            setPesquisaNome(null);
+            carregarGrafico(false);
             mostrarMsg("Registro salvo com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
         } catch (Exception ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,6 +98,15 @@ public class UsuarioController implements Serializable {
     public String limpar() {
         setUsuario(new Usuario());
         return "";
+    }
+
+    public void pesquisarUsuario() {
+        try {
+            setListUsuario(daoUsuario.pesquisarPorNome(getPesquisaNome()));
+            carregarGrafico(true);
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void deletarEmail() {
@@ -113,7 +128,7 @@ public class UsuarioController implements Serializable {
             mostrarMsg("Erro ao Remover E-mail!\n" + ex.getMessage(), "ERRO!", FacesMessage.SEVERITY_ERROR);
         }
     }
-    
+
     public void limpaEmail() {
         setEmail(new Email());
     }
@@ -134,20 +149,20 @@ public class UsuarioController implements Serializable {
                             getUsuario().setListEmail(new ArrayList<>());
                         }
 
-                        if(getUsuario().getListEmail().isEmpty()) {
+                        if (getUsuario().getListEmail().isEmpty()) {
                             getUsuario().getListEmail().add(getEmail());
                         } else {
                             boolean existsId = false;
-                            
-                            for(Email ema : getUsuario().getListEmail()) {
-                                if(ema.getId() != null
-                                        && ema.getId().compareTo(getEmail().getId()) == 0)  {
+
+                            for (Email ema : getUsuario().getListEmail()) {
+                                if (ema.getId() != null
+                                        && ema.getId().compareTo(getEmail().getId()) == 0) {
                                     existsId = true;
                                     break;
                                 }
                             }
-                            
-                            if(!existsId) {
+
+                            if (!existsId) {
                                 getUsuario().getListEmail().add(getEmail());
                             }
                         }
@@ -175,7 +190,9 @@ public class UsuarioController implements Serializable {
                 //Modo para usar o framework e fazer por cascata e orphanRemoval automaticamente:
                 daoUsuario.removerUsandoCascadeRemoveOrphanRemoval(getUsuario());
                 setUsuario(new Usuario());
-                carregarGrafico();
+                getListCharged();
+                setPesquisaNome(null);
+                carregarGrafico(false);
                 mostrarMsg("Registro removido com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
             }
         } catch (Exception ex) {
@@ -213,11 +230,18 @@ public class UsuarioController implements Serializable {
         return str.toString();
     }
 
-    public void carregarGrafico() {
+    public void carregarGrafico(Boolean carregaDaListaPesquisaNome) {
         setBarChartModel(new BarChartModel());
 
         try {
-            List<Usuario> listUsuarioChart = daoUsuario.listar(Usuario.class);
+            List<Usuario> listUsuarioChart = null;
+
+            if (carregaDaListaPesquisaNome != null
+                    && carregaDaListaPesquisaNome) {
+                listUsuarioChart = getListUsuario();
+            } else {
+                listUsuarioChart = daoUsuario.listar(Usuario.class);
+            }
 
             if (listUsuarioChart != null
                     && !listUsuarioChart.isEmpty()) {
@@ -390,6 +414,14 @@ public class UsuarioController implements Serializable {
 
     public void setEmail(Email email) {
         this.email = email;
+    }
+
+    public String getPesquisaNome() {
+        return pesquisaNome;
+    }
+
+    public void setPesquisaNome(String pesquisaNome) {
+        this.pesquisaNome = pesquisaNome;
     }
 
 }

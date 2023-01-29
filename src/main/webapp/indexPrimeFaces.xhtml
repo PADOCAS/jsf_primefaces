@@ -95,7 +95,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             <br/>
             <br/>
 
-            <p:dataTable value="#{usuarioController.getListCharged()}" var="usu"
+            <p:panel header="Consultar Usuários">
+                <h:panelGrid id="pnlGridConsultaUsuario" columns="3" >
+                    <h:outputLabel id="lblPesquisaNome" value="Nome" />
+                    <p:inputText id="txtPesquisaNome" value="#{usuarioController.pesquisaNome}" style="width: 400px;" />
+                    <p:commandButton value="Buscar" actionListener="#{usuarioController.pesquisarUsuario()}" process="pnlGridConsultaUsuario" update="@form:dataTableUsuarios @form:barChartGraficoSalario" />
+                </h:panelGrid>
+            </p:panel>
+
+            <p:dataTable id="dataTableUsuarios" value="#{usuarioController.listUsuario}" var="usu"
                          emptyMessage="Nenhum usuário encontrado!">
                 <p:column style="width: 4%;">
                     <f:facet name="header" >Id</f:facet>
@@ -150,7 +158,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             </p:dataTable>
 
             <div class="divGrafico">
-                <p:barChart model="#{usuarioController.barChartModel}" style="width: 100%; height: 500px;"/>
+                <p:barChart id="barChartGraficoSalario" model="#{usuarioController.barChartModel}" style="width: 100%; height: 500px;"/>
             </div>
 
             <p:dialog id="dialogEmail" widgetVar="dialogEmail" header="E-mails" modal="true" position="center" resizable="false" width="500px">
