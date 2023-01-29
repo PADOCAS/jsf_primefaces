@@ -51,7 +51,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 <h:outputLabel id="lblCep" value="CEP" />
                 <p:inputText id="txtCep" value="#{usuarioController.usuario.cep}" pt:placeholder="Informe o CEP" >
-                    <f:ajax event="blur" execute="@this" listener="#{usuarioController.pesquisaCep}" render="txtLogradouro txtComplemento txtBairro txtLocalidade txtUf txtIbge txtGia messageIndex" />
+                    <f:ajax event="blur" execute="@this" listener="#{usuarioController.pesquisaCep}" render="txtLogradouro txtComplemento txtBairro txtLocalidade txtUf txtIbge txtGia @form:messageIndex" />
                 </p:inputText>
 
                 <h:outputLabel id="lblLogradouro" value="Logradouro" />
@@ -87,9 +87,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
             <br/>
 
-            <p:commandButton ajax="false" action="#{usuarioController.salvar()}" value="Salvar" style="margin-right: 3px;" />
-            <p:commandButton id="btnLimpar" immediate="true" action="#{usuarioController.limpar()}" value="Novo" >
-                <f:ajax execute="btnLimpar" render="formUsuario messageIndex"/>
+            <p:commandButton ajax="false" process="@this" action="#{usuarioController.salvar()}" value="Salvar" style="margin-right: 3px;" />
+            <p:commandButton id="btnLimpar" immediate="true" process="@this" action="#{usuarioController.limpar()}" value="Novo" >
+                <f:ajax execute="btnLimpar" render="formUsuario @form:messageIndex"/>
             </p:commandButton>
 
             <br/>
@@ -124,7 +124,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <h:commandLink id="cmdLinkEditar" immediate="true" >
                         <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usu}" />
                         <h:graphicImage name="editar.png" library="imagens" height="15" width="15" title="Editar"></h:graphicImage>
-                        <f:ajax execute="cmdLinkEditar" render="formUsuario messageIndex"/>
+                        <f:ajax execute="cmdLinkEditar" render="formUsuario @form:messageIndex"/>
                     </h:commandLink>
                 </p:column>  
                 <p:column style="text-align: center; width: 6%;">
@@ -132,7 +132,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <h:commandLink id="cmdLinkExcluir" immediate="true" action="#{usuarioController.deletar()}" >
                         <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usu}" />
                         <h:graphicImage name="table_remove.png" library="imagens" height="15" width="15" title="Excluir"></h:graphicImage>
-                        <f:ajax execute="cmdLinkExcluir" render="formUsuario messageIndex"/>
+                        <f:ajax execute="cmdLinkExcluir" render="formUsuario @form:messageIndex"/>
                     </h:commandLink>
                 </p:column>
                 <p:column style="text-align: center; width: 6%;">
@@ -165,7 +165,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <p:inputText id="txtIdDialogEmail" readonly="true" value="#{usuarioController.email.id}" style="width: 100px;" />
 
                         <h:outputLabel id="lblEmailDialogTel" value="E-mail" />
-                        <p:inputText id="txtEmailDialogTel" value="#{usuarioController.email.emailUser}" style="width: 350px;" pt:placeholder="Informe o E-mail" required="true" requiredMessage="E-mail é requerido!" />
+                        <p:inputText id="txtEmailDialogTel" value="#{usuarioController.email.emailUser}" style="width: 350px;" pt:placeholder="Informe o E-mail" />
                     </p:panelGrid>
 
                     <br/>

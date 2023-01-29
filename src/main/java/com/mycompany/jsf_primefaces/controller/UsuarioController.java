@@ -70,6 +70,12 @@ public class UsuarioController implements Serializable {
 
     public String salvar() {
         try {
+            if(getUsuario() != null) {
+                //Iniciando as Listas (LAZY, caso estejam nulas.. se não da erro no hibernate
+                if(getUsuario().getListEmail() == null) {
+                    getUsuario().setListEmail(new ArrayList<>());
+                }
+            }
             setUsuario(daoUsuario.saveOrUpdate(usuario));
             carregarGrafico();
             mostrarMsg("Registro salvo com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
@@ -163,8 +169,10 @@ public class UsuarioController implements Serializable {
         try {
             if (getUsuario() != null
                     && getUsuario().getId() != null) {
-                //Remover Telefone e Usuarios em cascata! Tabela dependente deve ser excluida primeiro!!
-                daoUsuario.removerUsuarioETelefonesCascata(getUsuario());
+                //Remover Telefone/Emails e Usuarios em cascata! Tabela dependente deve ser excluida primeiro!!
+//                daoUsuario.removerUsuarioETelefonesCascata(getUsuario());
+                //Modo para usar o framework e fazer por cascata e orphanRemoval automaticamente:
+                daoUsuario.removerUsandoCascadeRemoveOrphanRemoval(getUsuario());
                 setUsuario(new Usuario());
                 carregarGrafico();
                 mostrarMsg("Registro removido com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
@@ -175,7 +183,7 @@ public class UsuarioController implements Serializable {
 
             if (ex.getMessage() != null
                     && ex.getMessage().contains("org.hibernate.exception.ConstraintViolationException")) {
-                mostrarMsg("Erro ao Deletar!\nExistem telefones cadastrados para o usuário!\nNão é permitido a exclusão!", "ERRO!", FacesMessage.SEVERITY_ERROR);
+                mostrarMsg("Erro ao Deletar!\nExistem tabelas filhas referenciadas!\nNão é permitido a exclusão!", "ERRO!", FacesMessage.SEVERITY_ERROR);
             } else {
                 mostrarMsg("Erro ao Deletar!\n" + ex.getMessage(), "ERRO!", FacesMessage.SEVERITY_ERROR);
             }
