@@ -97,8 +97,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
             <p:dataTable value="#{usuarioController.getListCharged()}" var="usu"
                          emptyMessage="Nenhum usuário encontrado!">
-                <f:facet name="header">Lista de Usuários</f:facet>
-
                 <p:column style="width: 4%;">
                     <f:facet name="header" >Id</f:facet>
                     <h:outputText value="#{usu.id}" />

@@ -76,7 +76,8 @@ public class UsuarioController implements Serializable {
                     getUsuario().setListEmail(new ArrayList<>());
                 }
             }
-            setUsuario(daoUsuario.saveOrUpdate(usuario));
+            daoUsuario.saveOrUpdate(usuario);
+            setUsuario(new Usuario());            
             carregarGrafico();
             mostrarMsg("Registro salvo com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
         } catch (Exception ex) {

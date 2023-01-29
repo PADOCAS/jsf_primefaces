@@ -34,10 +34,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:inputText id="txtId" readonly="true" value="#{telefoneController.telefone.id}" style="width: 100px;" />
 
                 <h:outputLabel id="lblTelefone" value="Telefone" />
-                <p:inputText id="txtTelefone" value="#{telefoneController.telefone.telefone}" pt:placeholder="Informe o Telefone" style="width: 150px;" required="true" requiredMessage="Telefone é requerido!" />
+                <p:inputMask id="txtTelefone" value="#{telefoneController.telefone.telefone}" mask="(99) 9999-9999" pt:placeholder="Informe o Telefone" style="width: 150px;" required="true" requiredMessage="Telefone é requerido!" />
 
                 <h:outputLabel id="lblTipo" value="Tipo" />
-                <p:inputText id="txtTipo" value="#{telefoneController.telefone.tipo}" pt:placeholder="Informe o Tipo" style="width: 150px;" required="true" requiredMessage="Tipo é requerido!" />  
+                <p:selectOneMenu id="selOneTipo" value="#{telefoneController.telefone.tipo}" style="width: 200px;" required="true" requiredMessage="Tipo é requerido!" >
+                    <f:selectItem itemValue="C" itemLabel="Celular" />
+                    <f:selectItem itemValue="S" itemLabel="Casa" />
+                    <f:selectItem itemValue="T" itemLabel="Trabalho" />
+                </p:selectOneMenu>
             </h:panelGrid>
             
             <br/>
@@ -63,7 +67,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </p:column>
                 <p:column style="width: 15%;">
                     <f:facet name="header" >Tipo</f:facet>
-                    <h:outputText value="#{tel.tipo}" />
+                    <h:outputText value="#{tel.strTipo}" />
                 </p:column>
                 <p:column style="text-align: center; width: 6%;">
                     <f:facet name="header" >Editar</f:facet>

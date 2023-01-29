@@ -76,7 +76,8 @@ public class TelefoneController implements Serializable {
                     && getUsuario() != null
                     && getUsuario().getId() != null) {
                 getTelefone().setUsuario(getUsuario());
-                setTelefone(daoTelefone.saveOrUpdate(telefone));
+                daoTelefone.saveOrUpdate(telefone);
+                setTelefone(new Telefone());
                 mostrarMsg("Registro salvo com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);
             }
         } catch (Exception ex) {

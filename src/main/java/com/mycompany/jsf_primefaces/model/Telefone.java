@@ -69,6 +69,22 @@ public class Telefone implements Serializable {
         this.tipo = tipo;
     }
 
+    public String getStrTipo() {
+        if (this.tipo != null) {
+            if (this.tipo.equals("C")) {
+                return "Celular";
+            } else if (this.tipo.equals("S")) {
+                return "Casa";
+            } else if (this.tipo.equals("T")) {
+                return "Trabalho";
+            } else {
+                return this.tipo;
+            }
+        }
+
+        return null;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
