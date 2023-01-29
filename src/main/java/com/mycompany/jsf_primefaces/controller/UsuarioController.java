@@ -86,11 +86,6 @@ public class UsuarioController implements Serializable {
         setUsuario(new Usuario());
         return "";
     }
-    
-    public void editarTeste() {
-        System.out.println(getEmail().getEmailUser());
-        mostrarMsg(getEmail().getEmailUser(), "Ok!", FacesMessage.SEVERITY_INFO);
-    }
 
     public void deletarEmail() {
         try {
@@ -126,12 +121,29 @@ public class UsuarioController implements Serializable {
                     //Salva e seta o email com a chave já carregada!
                     setEmail(daoEmail.saveOrUpdate(getEmail()));
 
-                    if (getEmail() != null) {
+                    if (getEmail() != null
+                            && getEmail().getId() != null) {
                         if (getUsuario().getListEmail() == null) {
                             getUsuario().setListEmail(new ArrayList<>());
                         }
 
-                        getUsuario().getListEmail().add(getEmail());
+                        if(getUsuario().getListEmail().isEmpty()) {
+                            getUsuario().getListEmail().add(getEmail());
+                        } else {
+                            boolean existsId = false;
+                            
+                            for(Email ema : getUsuario().getListEmail()) {
+                                if(ema.getId() != null
+                                        && ema.getId().compareTo(getEmail().getId()) == 0)  {
+                                    existsId = true;
+                                    break;
+                                }
+                            }
+                            
+                            if(!existsId) {
+                                getUsuario().getListEmail().add(getEmail());
+                            }
+                        }
                         //Após salvar, seta um novo email!
                         setEmail(new Email());
                         mostrarMsg("E-mail salvo com sucesso!", "Ok!", FacesMessage.SEVERITY_INFO);

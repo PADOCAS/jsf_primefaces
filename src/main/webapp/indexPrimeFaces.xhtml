@@ -23,7 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         </h:form>
 
         <h:form id="formUsuario">
-            <p:growl id="messageIndex" showDetail="true" showSummary="false" />
+            <p:growl id="messageIndex" showDetail="true" showSummary="false"/>
 
             <p:panelGrid columns="2" >
                 <h:outputLabel id="lblId" value="ID" />
@@ -144,7 +144,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </p:column>
                 <p:column style="text-align: center; width: 6%;">
                     <f:facet name="header" >E-mail</f:facet>
-                    <p:commandLink id="cmdLinkEmail" immediate="true" update="@form:dialogEmail" oncomplete="PF('dialogEmail').show();" actionListener="#{usuarioController.limpaEmail()}" >
+                    <p:commandLink id="cmdLinkEmail" immediate="true" process="@this" update="@form:dialogEmail @form:pnlGroupDialogEmail @form:pnlGridDialogTel" oncomplete="PF('dialogEmail').show();" actionListener="#{usuarioController.limpaEmail()}" >
                         <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usu}" />
                         <h:graphicImage name="email.png" library="imagens" height="15" width="15" title="E-mail"></h:graphicImage>
                     </p:commandLink>
@@ -155,54 +155,54 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:barChart model="#{usuarioController.barChartModel}" style="width: 100%; height: 500px;"/>
             </div>
 
-            <p:dialog id="dialogEmail" widgetVar="dialogEmail" header="E-mails" modal="true" position="center" resizable="false" width="500px" height="500px">
-                <p:panelGrid id="pnlGridDialogTel" columns="2" >
-                    <h:outputLabel id="lblUsuarioDialogEmail" value="Usuário" />
-                    <p:outputLabel id="txtUsuarioDialogEmail" value="#{usuarioController.nomeSobrenomeUsuario}" style="width: 350px;" />
+            <p:dialog id="dialogEmail" widgetVar="dialogEmail" header="E-mails" modal="true" position="center" resizable="false" width="500px">
+                <h:panelGroup id="pnlGroupDialogEmail" >
+                    <p:panelGrid id="pnlGridDialogTel" columns="2" >
+                        <h:outputLabel id="lblUsuarioDialogEmail" value="Usuário" />
+                        <p:outputLabel id="txtUsuarioDialogEmail" value="#{usuarioController.nomeSobrenomeUsuario}" style="width: 350px;" />
 
-                    <h:outputLabel id="lblIdDialogEmail" value="ID" />
-                    <p:inputText id="txtIdDialogEmail" readonly="true" value="#{usuarioController.email.id}" style="width: 100px;" />
+                        <h:outputLabel id="lblIdDialogEmail" value="ID" />
+                        <p:inputText id="txtIdDialogEmail" readonly="true" value="#{usuarioController.email.id}" style="width: 100px;" />
 
-                    <h:outputLabel id="lblEmailDialogTel" value="E-mail" />
-                    <p:inputText id="txtEmailDialogTel" value="#{usuarioController.email.emailUser}" style="width: 350px;" pt:placeholder="Informe o E-mail" required="true" requiredMessage="E-mail é requerido!" />
-                </p:panelGrid>
+                        <h:outputLabel id="lblEmailDialogTel" value="E-mail" />
+                        <p:inputText id="txtEmailDialogTel" value="#{usuarioController.email.emailUser}" style="width: 350px;" pt:placeholder="Informe o E-mail" required="true" requiredMessage="E-mail é requerido!" />
+                    </p:panelGrid>
 
-                <br/>
+                    <br/>
 
-                <p:commandButton id="btnSalvarEmail" process="dialogEmail" update="pnlGridDialogTel dataTableListEmail messageIndex" actionListener="#{usuarioController.salvarEmail()}" value="Salvar" style="margin-bottom: 8px;" />
+                    <p:commandButton id="btnSalvarEmail" process="dialogEmail" update="@form:pnlGridDialogTel @form:dataTableListEmail @form:messageIndex" actionListener="#{usuarioController.salvarEmail()}" value="Salvar" style="margin-bottom: 8px;" />
 
-                <p:dataTable id="dataTableListEmail" value="#{usuarioController.usuario.listEmail}" var="ema"
-                             emptyMessage="Nenhum E-mail cadastrado!">
-                    <f:facet name="header">Lista de E-mails</f:facet>
+                    <p:dataTable id="dataTableListEmail" value="#{usuarioController.usuario.listEmail}" var="ema" scrollable="true" scrollRows="3" scrollHeight="250"
+                                 emptyMessage="Nenhum E-mail cadastrado!">
+                        <p:column style="width: 4%;">
+                            <f:facet name="header" >Id</f:facet>
+                            <h:outputText value="#{ema.id}" />
+                        </p:column>
 
-                    <p:column style="width: 4%;">
-                        <f:facet name="header" >Id</f:facet>
-                        <h:outputText value="#{ema.id}" />
-                    </p:column>
+                        <p:column style="width: 40%;">
+                            <f:facet name="header" >E-mail</f:facet>
+                            <h:outputText value="#{ema.emailUser}" />
+                        </p:column>
 
-                    <p:column style="width: 40%;">
-                        <f:facet name="header" >E-mail</f:facet>
-                        <h:outputText value="#{ema.emailUser}" />
-                    </p:column>
+                        <p:column style="text-align: center; width: 6%;">
+                            <f:facet name="header" >Editar</f:facet>
+                            <h:commandLink id="cmdLinkEditarTableEmail" immediate="true" >
+                                <f:setPropertyActionListener target="#{usuarioController.email}" value="#{ema}" />
+                                <h:graphicImage name="editar.png" library="imagens" height="15" width="15" title="Editar"></h:graphicImage>
+                                <f:ajax execute="cmdLinkEditarTableEmail" render="@form:pnlGroupDialogEmail @form:pnlGridDialogTel @form:messageIndex"/>
+                            </h:commandLink>
+                        </p:column>  
 
-                    <p:column style="text-align: center; width: 6%;">
-                        <f:facet name="header" >Editar</f:facet>
-                        <h:commandLink id="cmdLinkEditarTableEmail" immediate="true" action="#{usuarioController.editarTeste()}">
-                            <f:setPropertyActionListener target="#{usuarioController.email}" value="#{ema}" />
-                            <h:graphicImage name="editar.png" library="imagens" height="15" width="15" title="Editar"></h:graphicImage>
-                            <f:ajax execute="cmdLinkEditarTableEmail" render="pnlGridDialogTel messageIndex"/>
-                        </h:commandLink>
-                    </p:column>  
-
-                    <p:column style="text-align: center; width: 6%;">
-                        <f:facet name="header" >Excluir</f:facet>
-                        <h:commandLink id="cmdLinkExcluirTableEmail" immediate="true" action="#{usuarioController.deletarEmail()}" >
-                            <f:setPropertyActionListener target="#{usuarioController.email}" value="#{ema}" />
-                            <h:graphicImage name="table_remove.png" library="imagens" height="15" width="15" title="Excluir"></h:graphicImage>
-                            <f:ajax execute="cmdLinkExcluirTableEmail" render="pnlGridDialogTel dataTableListEmail messageIndex"/>
-                        </h:commandLink>
-                    </p:column>
-                </p:dataTable>
+                        <p:column style="text-align: center; width: 6%;">
+                            <f:facet name="header" >Excluir</f:facet>
+                            <h:commandLink id="cmdLinkExcluirTableEmail" immediate="true" action="#{usuarioController.deletarEmail()}" >
+                                <f:setPropertyActionListener target="#{usuarioController.email}" value="#{ema}" />
+                                <h:graphicImage name="table_remove.png" library="imagens" height="15" width="15" title="Excluir"></h:graphicImage>
+                                <f:ajax execute="cmdLinkExcluirTableEmail" render="@form:pnlGroupDialogEmail @form:pnlGridDialogTel @form:dataTableListEmail @form:messageIndex"/>
+                            </h:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGroup>
             </p:dialog>
         </h:form>
     </h:body>
