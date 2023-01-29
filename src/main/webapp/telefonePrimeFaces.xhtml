@@ -22,10 +22,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <h:form id="formTelefone">
             <p:messages id="messageTelefone" showDetail="true" showSummary="false" />
 
-            <p:panelGrid columns="2" >
-                <h:outputLabel id="lblUsuario" value="Usuário" />
-                <p:outputLabel id="txtUsuario" value="#{telefoneController.nomeSobrenomeUsuario}" style="width: 500px;" />
-
+            <p:outputLabel id="txtUsuario" value="#{telefoneController.nomeSobrenomeUsuario}" style="font-weight: bold;
+                                   display: flex;
+                                   flex-direction: row;
+                                   justify-content: flex-start;
+                                   font-size: 13px;
+                                   margin-top: 5px;" />
+            
+            <h:panelGrid columns="2" style="margin-top: 3px;">
                 <h:outputLabel id="lblId" value="ID" />
                 <p:inputText id="txtId" readonly="true" value="#{telefoneController.telefone.id}" style="width: 100px;" />
 
@@ -34,7 +38,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 <h:outputLabel id="lblTipo" value="Tipo" />
                 <p:inputText id="txtTipo" value="#{telefoneController.telefone.tipo}" pt:placeholder="Informe o Tipo" style="width: 150px;" required="true" requiredMessage="Tipo é requerido!" />  
-            </p:panelGrid>
+            </h:panelGrid>
             
             <br/>
             
@@ -48,7 +52,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
             <p:dataTable value="#{telefoneController.getChargedListTelefone()}" var="tel"
                          emptyMessage="Nenhum telefone cadastrado!">
-                <f:facet name="header">Lista de Telefones</f:facet>
 
                 <p:column style="width: 6%;">
                     <f:facet name="header" >Id</f:facet>

@@ -25,7 +25,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <h:form id="formUsuario">
             <p:growl id="messageIndex" showDetail="true" showSummary="false"/>
 
-            <p:panelGrid columns="2" >
+            <h:panelGrid columns="2" >
                 <h:outputLabel id="lblId" value="ID" />
                 <p:inputText id="txtId" readonly="true" value="#{usuarioController.usuario.id}" style="width: 100px;" />
 
@@ -38,13 +38,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:inputText id="txtSobrenome" value="#{usuarioController.usuario.sobrenome}" pt:placeholder="Informe o Sobrenome" style="width: 400px;" required="true" requiredMessage="Sobrenome é requerido!" />
 
                 <h:outputLabel id="lblIdade" value="Idade"/>
-                <p:inputText id="txtIdade" value="#{usuarioController.usuario.idade}" pt:placeholder="Informe a Idade" style="width: 150px;" />
+                <p:inputNumber id="txtIdade" decimalPlaces="0" value="#{usuarioController.usuario.idade}" pt:placeholder="Informe a Idade" style="width: 150px;" />
 
                 <h:outputLabel id="lblSalario" value="Salário"/>
-                <p:inputText id="txtSalario" value="#{usuarioController.usuario.salario}" pt:placeholder="Informe o Salário" style="width: 200px;" />
+                <p:inputNumber id="txtSalario" value="#{usuarioController.usuario.salario}" pt:placeholder="Informe o Salário" style="width: 200px;" />
 
                 <h:outputLabel id="lblSexo" value="Sexo"/>
-                <p:selectOneMenu value="#{usuarioController.usuario.sexo}" >
+                <p:selectOneMenu value="#{usuarioController.usuario.sexo}" style="width: 200px;" >
                     <f:selectItem itemValue="M" itemLabel="Masculino" />
                     <f:selectItem itemValue="F" itemLabel="Feminino" />
                 </p:selectOneMenu>
@@ -83,7 +83,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 <h:outputLabel id="lblSenha" value="Senha"/>
                 <p:password id="txtSenha" value="#{usuarioController.usuario.senha}" pt:placeholder="Informe a Senha" style="width: 200px;" required="true" requiredMessage="Senha é requerida!"/>
-            </p:panelGrid>
+            </h:panelGrid>
 
             <br/>
 
@@ -157,16 +157,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
             <p:dialog id="dialogEmail" widgetVar="dialogEmail" header="E-mails" modal="true" position="center" resizable="false" width="500px">
                 <h:panelGroup id="pnlGroupDialogEmail" >
-                    <p:panelGrid id="pnlGridDialogTel" columns="2" >
-                        <h:outputLabel id="lblUsuarioDialogEmail" value="Usuário" />
-                        <p:outputLabel id="txtUsuarioDialogEmail" value="#{usuarioController.nomeSobrenomeUsuario}" style="width: 350px;" />
+                    <p:outputLabel id="txtUsuarioDialogEmail" value="#{usuarioController.nomeSobrenomeUsuario}" style="font-weight: bold;
+                                   display: flex;
+                                   flex-direction: row;
+                                   justify-content: center;
+                                   font-size: 13px;" />
 
+                    <h:panelGrid id="pnlGridDialogTel" columns="2" style="margin-top: 3px;">
                         <h:outputLabel id="lblIdDialogEmail" value="ID" />
                         <p:inputText id="txtIdDialogEmail" readonly="true" value="#{usuarioController.email.id}" style="width: 100px;" />
 
                         <h:outputLabel id="lblEmailDialogTel" value="E-mail" />
                         <p:inputText id="txtEmailDialogTel" value="#{usuarioController.email.emailUser}" style="width: 350px;" pt:placeholder="Informe o E-mail" />
-                    </p:panelGrid>
+                    </h:panelGrid>
 
                     <br/>
 
