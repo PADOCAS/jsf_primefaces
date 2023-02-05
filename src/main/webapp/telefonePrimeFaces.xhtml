@@ -73,7 +73,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <f:facet name="header" >Editar</f:facet>
                     <h:commandLink id="cmdLinkEditar" style="display: flex; justify-content: center;" immediate="true" >
                         <f:setPropertyActionListener target="#{telefoneController.telefone}" value="#{tel}" />
-                        <h:graphicImage name="editar.png" library="imagens" height="15" width="15" title="Editar"></h:graphicImage>
+                        <h:graphicImage name="editar.png" library="imagens" height="20" width="20" title="Editar"></h:graphicImage>
                         <f:ajax execute="cmdLinkEditar" render="formTelefone messageTelefone"/>
                     </h:commandLink>
                 </p:column>  
@@ -81,7 +81,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <f:facet name="header" >Excluir</f:facet>
                     <h:commandLink id="cmdLinkExcluir" immediate="true" style="display: flex; justify-content: center;" action="#{telefoneController.deletar()}" >
                         <f:setPropertyActionListener target="#{telefoneController.telefone}" value="#{tel}" />
-                        <h:graphicImage name="table_remove.png" library="imagens" height="15" width="15" title="Excluir"></h:graphicImage>
+                        <h:graphicImage name="table_remove.png" library="imagens" height="20" width="20" title="Excluir"></h:graphicImage>
                         <f:ajax execute="cmdLinkExcluir" render="formTelefone messageTelefone"/>
                     </h:commandLink>
                 </p:column>          

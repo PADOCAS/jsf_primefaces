@@ -26,6 +26,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.charts.ChartData;
@@ -216,6 +217,39 @@ public class UsuarioController implements Serializable {
             //Converte imagem para base64:
             String imagemConvert64 = "data:image/png;base64," + DatatypeConverter.printBase64Binary(image.getFile().getContent());
             getUsuario().setImagem(imagemConvert64);
+        }
+    }
+
+    public void downloadImagem() {
+        try {
+            if (FacesContext.getCurrentInstance() != null
+                    && FacesContext.getCurrentInstance().getExternalContext() != null
+                    && FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap() != null
+                    && FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("fileDownloadId") != null) {
+                Long userId = Long.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("fileDownloadId"));
+                Usuario usuarioCharged = daoUsuario.consultar(Usuario.class, userId);
+
+                if (usuarioCharged != null
+                        && usuarioCharged.getImagem() != null) {
+                    byte[] imagem = new org.apache.tomcat.util.codec.binary.Base64().decode(usuarioCharged.getImagem().split("\\,")[1]);
+
+                    //Dar a resposta para a página:
+                    HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+                    //Tive que usar o reset no response, pois ja estava chamando antes desse metodo.. talvez algo no filter coisa do tipo.. ai não dava certo!
+                    response.reset();
+                    response.setHeader("Content-Disposition", "attachment;filename=arquivo.png");
+                    response.setContentType("application/octet-stream");
+                    response.setContentLength(imagem.length);
+                    response.getOutputStream().write(imagem);
+                    response.getOutputStream().flush();
+                    FacesContext.getCurrentInstance().responseComplete();
+                } else {
+                    mostrarMsg("Usuário sem imagem cadastrada!", "Atenção", FacesMessage.SEVERITY_WARN);
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            mostrarMsg("Erro ao carregar imagem para download!\n" + ex.getMessage(), "ERRO", FacesMessage.SEVERITY_ERROR);
         }
     }
 
