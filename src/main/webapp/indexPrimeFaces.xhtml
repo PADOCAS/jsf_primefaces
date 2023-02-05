@@ -13,7 +13,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <title>JSF - PrimeFaces (Versão com PrimeFaces)</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-    <h:body> 
+
+    <style type="text/css">
+        @media only screen and (max-width: 602px) {
+            .inputTextGrande {
+                width: 220px !important;
+            }
+        }
+        
+        @media only screen and (max-width: 405px) {
+            .inputTextGrande {
+                width: 140px !important;
+            }
+        }
+    </style>
+
+    <h:body>         
         <h:form>
             <p:breadCrumb>
                 <p:menuitem />
@@ -35,7 +50,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </p:inputText>
 
                 <h:outputLabel id="lblSobrenome" value="Sobrenome"/>
-                <p:inputText id="txtSobrenome" value="#{usuarioController.usuario.sobrenome}" pt:placeholder="Informe o Sobrenome" style="width: 400px;" required="true" requiredMessage="Sobrenome é requerido!" />
+                <p:inputText id="txtSobrenome" value="#{usuarioController.usuario.sobrenome}" class="inputTextGrande" pt:placeholder="Informe o Sobrenome" style="width: 400px;" required="true" requiredMessage="Sobrenome é requerido!" />
 
                 <h:outputLabel id="lblIdade" value="Idade"/>
                 <p:inputNumber id="txtIdade" decimalPlaces="0" value="#{usuarioController.usuario.idade}" pt:placeholder="Informe a Idade" style="width: 150px;" />
@@ -55,16 +70,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </p:inputText>
 
                 <h:outputLabel id="lblLogradouro" value="Logradouro" />
-                <p:inputText id="txtLogradouro" value="#{usuarioController.usuario.logradouro}" pt:placeholder="Informe o Logradouro" style="width: 400px;" />
+                <p:inputText id="txtLogradouro" value="#{usuarioController.usuario.logradouro}" class="inputTextGrande" pt:placeholder="Informe o Logradouro" style="width: 400px;" />
 
                 <h:outputLabel id="lblNrLogradouro" value="Número" />
                 <p:inputText id="txtNrLogradouro" value="#{usuarioController.usuario.numero}" pt:placeholder="Informe o Número" />
 
                 <h:outputLabel id="lblComplemento" value="Complemento" />
-                <p:inputText id="txtComplemento" value="#{usuarioController.usuario.complemento}" pt:placeholder="Informe o Complemento" style="width: 400px;"/>
+                <p:inputText id="txtComplemento" value="#{usuarioController.usuario.complemento}" class="inputTextGrande" pt:placeholder="Informe o Complemento" style="width: 400px;"/>
 
                 <h:outputLabel id="lblBairro" value="Bairro" />
-                <p:inputText id="txtBairro" value="#{usuarioController.usuario.bairro}" pt:placeholder="Informe o Bairro" style="width: 400px;" />
+                <p:inputText id="txtBairro" value="#{usuarioController.usuario.bairro}" class="inputTextGrande" pt:placeholder="Informe o Bairro" style="width: 400px;" />
 
                 <h:outputLabel id="lblLocalidade" value="Localidade" />
                 <p:inputText id="txtLocalidade" value="#{usuarioController.usuario.localidade}" pt:placeholder="Informe a Localidade" style="width: 200px;" />
@@ -104,12 +119,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             <p:panel header="Consultar Usuários">
                 <h:panelGrid id="pnlGridConsultaUsuario" columns="3" >
                     <h:outputLabel id="lblPesquisaNome" value="Nome" />
-                    <p:inputText id="txtPesquisaNome" value="#{usuarioController.pesquisaNome}" style="width: 400px;" />
+                    <p:inputText id="txtPesquisaNome" class="inputTextGrande" value="#{usuarioController.pesquisaNome}" style="width: 400px;" />
                     <p:commandButton value="Buscar" actionListener="#{usuarioController.pesquisarUsuario()}" process="pnlGridConsultaUsuario" update="@form:dataTableUsuarios @form:barChartGraficoSalario" />
                 </h:panelGrid>
             </p:panel>
 
             <p:dataTable id="dataTableUsuarios" value="#{usuarioController.listUsuario}" var="usu"
+                         rows="5" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                         rowsPerPageTemplate="5,10,15"
                          emptyMessage="Nenhum usuário encontrado!">
                 <p:column style="width: 4%;">
                     <f:facet name="header" >Id</f:facet>
@@ -123,11 +142,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <f:facet name="header" >Sobrenome</f:facet>
                     <h:outputText value="#{usu.sobrenome}" />
                 </p:column>
-                <p:column style="width: 5%;">
+                <p:column style="text-align: center; width: 5%;">
                     <f:facet name="header" >Idade</f:facet>
                     <h:outputText value="#{usu.idade}" />
                 </p:column>  
-                <p:column style="width: 6%;">
+                <p:column style="text-align: center; width: 6%;">
                     <f:facet name="header" >Sexo</f:facet>
                     <h:outputText value="#{usu.strSexo}" />
                 </p:column>
