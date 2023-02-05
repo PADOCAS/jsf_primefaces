@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -59,6 +60,9 @@ public class Usuario implements Serializable {
     private String numero;
 
     private Double salario;
+
+    @Column(columnDefinition = "text")
+    private String imagem;
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Telefone> listTelefone;
@@ -231,6 +235,14 @@ public class Usuario implements Serializable {
 
     public void setListEmail(List<Email> listEmail) {
         this.listEmail = listEmail;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
     @Override

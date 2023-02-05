@@ -83,6 +83,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 <h:outputLabel id="lblSenha" value="Senha"/>
                 <p:password id="txtSenha" value="#{usuarioController.usuario.senha}" pt:placeholder="Informe a Senha" style="width: 200px;" required="true" requiredMessage="Senha é requerida!"/>
+                
+                <h:outputLabel id="lblImagem" value="Inserir Imagem" />
+                <p:fileUpload id="fileUpImagem" mode="advanced" label="Adicionar" auto="true" listener="#{usuarioController.uploadImagem}" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update="@form:grapImgFotoCarregada"/>
+                
+                <h:outputLabel id="lblFotoCarregada" value="Imagem" />
+                <h:graphicImage id="grapImgFotoCarregada" value="#{usuarioController.usuario.imagem}" width="120" height="120" />
             </h:panelGrid>
 
             <br/>

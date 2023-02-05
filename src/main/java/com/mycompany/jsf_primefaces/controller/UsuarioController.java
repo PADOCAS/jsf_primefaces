@@ -26,6 +26,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
+import javax.xml.bind.DatatypeConverter;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
 import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
@@ -207,6 +209,14 @@ public class UsuarioController implements Serializable {
             }
         }
         return "";
+    }
+
+    public void uploadImagem(FileUploadEvent image) {
+        if (getUsuario() != null) {
+            //Converte imagem para base64:
+            String imagemConvert64 = "data:image/png;base64," + DatatypeConverter.printBase64Binary(image.getFile().getContent());
+            getUsuario().setImagem(imagemConvert64);
+        }
     }
 
     private String getStrRgbaRandomColorGrafico(Boolean isBackground) {
