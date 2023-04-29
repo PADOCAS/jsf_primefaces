@@ -69,5 +69,4 @@ public class DataTableModelLazyUsuario<T> extends LazyDataModel<Usuario> {
     public void setSql(String sql) {
         this.sql = sql;
     }
-
 }
