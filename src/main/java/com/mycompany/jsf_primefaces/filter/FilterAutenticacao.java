@@ -35,11 +35,11 @@ public class FilterAutenticacao implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         try {
             //Roda toda vez que interceptar algo:
-            HttpServletRequest req = (HttpServletRequest) request;
-            HttpSession session = req.getSession();
+//            HttpServletRequest req = (HttpServletRequest) request;
+//            HttpSession session = req.getSession();
             //Url que está sendo acessada:
-            String urlParaAutenticar = req.getServletPath(); //não pega a URL toda assim, ficando errado ao direcionar
-
+//            String urlParaAutenticar = req.getServletPath(); //não pega a URL toda assim, ficando errado ao direcionar
+            
             //Validar se está logado, se não redireciona para tela de login (pega o atributo do objeto session - "usuario"):
 //            if (session.getAttribute("usuario") == null
 //                    || ((Pessoa) session.getAttribute("usuario")).getLogin() == null
