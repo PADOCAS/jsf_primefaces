@@ -13,18 +13,31 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <title>Cadastro de Telefones do usuário</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
+    
+    <style type="text/css">
+        .inputTextGrande {
+            width: 500px;
+        }
+
+        @media (max-width: 520px) {
+            .inputTextGrande {
+                width: 250px;
+            }
+        }
+    </style>
+    
     <h:body>        
         <h:link value="Página JSF" outcome="index.jsf" />
         <br/>
         <h:link value="Página PrimeFaces" outcome="indexPrimeFaces.jsf" />
         <br/>
 
-        <h:form id="formTelefone">
+        <h:form id="formTelefone" style="width: 100%;">
             <h:messages id="messageTelefone" showDetail="true" showSummary="false" />
 
             <h:panelGrid columns="2" >
                 <h:outputLabel id="lblUsuario" value="Usuário" />
-                <h:inputText id="txtUsuario" readonly="true" value="#{telefoneController.nomeSobrenomeUsuario}" style="width: 500px;" />
+                <h:inputText id="txtUsuario" readonly="true" value="#{telefoneController.nomeSobrenomeUsuario}" class="inputTextGrande" />
 
                 <h:outputLabel id="lblId" value="ID" />
                 <h:inputText id="txtId" readonly="true" value="#{telefoneController.telefone.id}" style="width: 100px;" />
@@ -35,9 +48,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <h:outputLabel id="lblTipo" value="Tipo" />
                 <h:inputText id="txtTipo" value="#{telefoneController.telefone.tipo}" pt:placeholder="Informe o Tipo" style="width: 150px;" />  
 
-                <br/>
-
-                <h:outputLabel />
+                <h:outputLabel value="" />
                 <h:panelGroup>
                     <h:commandButton action="#{telefoneController.salvar()}" value="Salvar" style="margin-right: 3px;" />
                     <h:commandButton id="btnLimpar" action="#{telefoneController.limpar()}" value="Novo" >
@@ -46,10 +57,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </h:panelGroup>
             </h:panelGrid>
 
-            <br/>
-            <br/>
-
-            <h:dataTable value="#{telefoneController.getChargedListTelefone()}" var="tel" cellpadding="10" border="1">
+            <h:dataTable value="#{telefoneController.getChargedListTelefone()}" var="tel" cellpadding="10" border="1" style="margin-top: 5px; width: 100%;">
                 <f:facet name="header">Lista de Telefones</f:facet>
 
                 <h:column>

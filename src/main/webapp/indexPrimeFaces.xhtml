@@ -20,7 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 width: 220px !important;
             }
         }
-        
+
         @media only screen and (max-width: 405px) {
             .inputTextGrande {
                 width: 140px !important;
@@ -104,17 +104,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 <h:outputLabel id="lblFotoCarregada" value="Imagem" />
                 <h:graphicImage id="grapImgFotoCarregada" value="#{usuarioController.usuario.imagem}" width="120" height="120" />
+
+                <h:outputLabel value="" />
+                <h:panelGroup>
+                    <p:commandButton ajax="false" process="@this" action="#{usuarioController.salvar()}" value="Salvar" style="margin-right: 3px;" />
+                    <p:commandButton id="btnLimpar" immediate="true" process="@this" action="#{usuarioController.limpar()}" value="Novo" >
+                        <f:ajax execute="btnLimpar" render="formUsuario @form:messageIndex"/>
+                    </p:commandButton>
+                </h:panelGroup>
             </h:panelGrid>
-
-            <br/>
-
-            <p:commandButton ajax="false" process="@this" action="#{usuarioController.salvar()}" value="Salvar" style="margin-right: 3px;" />
-            <p:commandButton id="btnLimpar" immediate="true" process="@this" action="#{usuarioController.limpar()}" value="Novo" >
-                <f:ajax execute="btnLimpar" render="formUsuario @form:messageIndex"/>
-            </p:commandButton>
-
-            <br/>
-            <br/>
 
             <p:panel header="Consultar Usuários">
                 <h:panelGrid id="pnlGridConsultaUsuario" columns="3" >
@@ -206,14 +204,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <p:inputText id="txtIdDialogEmail" readonly="true" value="#{usuarioController.email.id}" style="width: 100px;" />
 
                         <h:outputLabel id="lblEmailDialogEmail" value="E-mail" />
-                        <p:inputText id="txtEmailDialogEmail" value="#{usuarioController.email.emailUser}" style="width: 350px;" pt:placeholder="Informe o E-mail" />
+                        <p:inputText id="txtEmailDialogEmail" value="#{usuarioController.email.emailUser}" style="width: 300px;" pt:placeholder="Informe o E-mail" />
+                        
+                        <h:outputLabel value="" />
+                        <h:panelGroup>
+                            <p:commandButton id="btnSalvarEmail" process="dialogEmail" update="@form:pnlGridDialogEmail @form:dataTableListEmail @form:messageIndex" actionListener="#{usuarioController.salvarEmail()}" value="Salvar" />                       
+                        </h:panelGroup>                        
                     </h:panelGrid>
 
-                    <br/>
-
-                    <p:commandButton id="btnSalvarEmail" process="dialogEmail" update="@form:pnlGridDialogEmail @form:dataTableListEmail @form:messageIndex" actionListener="#{usuarioController.salvarEmail()}" value="Salvar" style="margin-bottom: 8px;" />
-
                     <p:dataTable id="dataTableListEmail" value="#{usuarioController.usuario.listEmail}" var="ema" scrollable="true" scrollRows="3" scrollHeight="250"
+                                 style="margin-top: 5px;"
                                  emptyMessage="Nenhum E-mail cadastrado!">
                         <p:column style="width: 4%;">
                             <f:facet name="header" >Id</f:facet>

@@ -23,12 +23,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             <p:messages id="messageTelefone" showDetail="true" showSummary="false" />
 
             <p:outputLabel id="txtUsuario" value="#{telefoneController.nomeSobrenomeUsuario}" style="font-weight: bold;
-                                   display: flex;
-                                   flex-direction: row;
-                                   justify-content: flex-start;
-                                   font-size: 13px;
-                                   margin-top: 5px;" />
-            
+                           display: flex;
+                           flex-direction: row;
+                           justify-content: flex-start;
+                           font-size: 13px;
+                           margin-top: 5px;" />
+
             <h:panelGrid columns="2" style="margin-top: 3px;">
                 <h:outputLabel id="lblId" value="ID" />
                 <p:inputText id="txtId" readonly="true" value="#{telefoneController.telefone.id}" style="width: 100px;" />
@@ -42,19 +42,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <f:selectItem itemValue="S" itemLabel="Casa" />
                     <f:selectItem itemValue="T" itemLabel="Trabalho" />
                 </p:selectOneMenu>
-            </h:panelGrid>
-            
-            <br/>
-            
-            <p:commandButton ajax="false" action="#{telefoneController.salvar()}" value="Salvar" style="margin-right: 3px;" />
-            <p:commandButton id="btnLimpar" immediate="true" action="#{telefoneController.limpar()}" value="Novo" >
-                <f:ajax execute="btnLimpar" render="formTelefone messageTelefone"/>
-            </p:commandButton>
 
-            <br/>
-            <br/>
+                <h:outputLabel value="" />
+                <h:panelGroup>
+                    <p:commandButton ajax="false" action="#{telefoneController.salvar()}" value="Salvar" style="margin-right: 3px;" />
+                    <p:commandButton id="btnLimpar" immediate="true" action="#{telefoneController.limpar()}" value="Novo" >
+                        <f:ajax execute="btnLimpar" render="formTelefone messageTelefone"/>
+                    </p:commandButton>
+                </h:panelGroup>
+            </h:panelGrid>           
 
             <p:dataTable value="#{telefoneController.getChargedListTelefone()}" var="tel"
+                         style="margin-top: 5px;"
                          emptyMessage="Nenhum telefone cadastrado!">
 
                 <p:column style="width: 6%;">
