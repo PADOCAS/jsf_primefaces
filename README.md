@@ -24,7 +24,12 @@
 <br/>
 - Utilizando vários componentes do primefaces, opção de acessar API VIACEP para consulta de CEP por ajax e upload/download de imagens, conversão JSON.
 
+<h3 align="left">Configuração banco de dados para testes:</h3>
+- Atualize a classe 'persistence.xml', configurando de acordo com seu banco de dados para rodar a aplicação.
+<br/>
+- Modelagem de dados está dentro da pasta raiz: modelagem_jsf_primefaces.sql
+
 <h3 align="left">Servidor para testes:</h3>
 <p align="left">
-<a href="http://localhost:8080/jsf_primefaces/" target="blank">Projeto JSF + Primefaces</a>
+<a href="http://198.38.86.119:8080/jsf_primefaces/" target="blank">Projeto JSF/Primefaces</a>
 </p>
