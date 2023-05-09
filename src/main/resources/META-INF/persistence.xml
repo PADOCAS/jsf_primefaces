@@ -17,8 +17,8 @@
             <property name="hibernate.connection.password" value="admin"/>
             <!--Propriedade para criar as coisas automaticamente no banco de dados, vai ler as classes (@entity do model) e gerar as tabelas, atualizar etc..:-->
             <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="false"/>
 
             <!--c3p0 propriedades:-->
             <!--Minimo/Máximo de conexões ou portas disponiveis-->
