@@ -31,5 +31,5 @@
 
 <h3 align="left">Servidor para testes:</h3>
 <p align="left">
-<a href="http://198.38.86.119:8080/jsf_primefaces/" target="blank">Projeto JSF/Primefaces</a>
+<a href="https://www.ldsystems.com.br/jsf_primefaces/" target="blank">Projeto JSF/Primefaces</a>
 </p>
